@@ -39,7 +39,10 @@
     networkmanager.enable = true;
   };
   nixpkgs.overlays = [
-    (self: super: { libcec = super.libcec.override { inherit (self) libraspberrypi; }; })
+    (self: super: {
+      libcec = super.libcec.override { inherit (self) libraspberrypi; };
+      fcitx-engines = pkgs.fcitx5;
+    })
   ];
 
   # install libcec, which includes cec-client (requires root or "video" group, see udev rule below)
@@ -54,30 +57,30 @@
   # optional: attach a persisted cec-client to `/run/cec.fifo`, to avoid the CEC ~1s startup delay per command
   # scan for devices: `echo 'scan' &gt; /run/cec.fifo ; journalctl -u cec-client.service`
   # set pi as active source: `echo 'as' &gt; /run/cec.fifo`
-  systemd.sockets."cec-client" = {
-    after = [ "dev-vchiq.device" ];
-    bindsTo = [ "dev-vchiq.device" ];
-    wantedBy = [ "sockets.target" ];
-    socketConfig = {
-      ListenFIFO = "/run/cec.fifo";
-      SocketGroup = "video";
-      SocketMode = "0660";
-    };
-  };
-  systemd.services."cec-client" = {
-    after = [ "dev-vchiq.device" ];
-    bindsTo = [ "dev-vchiq.device" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = ''${pkgs.libcec}/bin/cec-client -d 1'';
-      ExecStop = ''/bin/sh -c "echo q &gt; /run/cec.fifo"'';
-      StandardInput = "socket";
-      StandardOutput = "journal";
-      Restart="no";
-    };
-  };
+  # systemd.sockets."cec-client" = {
+  #   after = [ "dev-vchiq.device" ];
+  #   bindsTo = [ "dev-vchiq.device" ];
+  #   wantedBy = [ "sockets.target" ];
+  #   socketConfig = {
+  #     ListenFIFO = "/run/cec.fifo";
+  #     SocketGroup = "video";
+  #     SocketMode = "0660";
+  #   };
+  # };
+  # systemd.services."cec-client" = {
+  #   after = [ "dev-vchiq.device" ];
+  #   bindsTo = [ "dev-vchiq.device" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     ExecStart = ''${pkgs.libcec}/bin/cec-client -d 1'';
+  #     ExecStop = ''/bin/sh -c "echo q &gt; /run/cec.fifo"'';
+  #     StandardInput = "socket";
+  #     StandardOutput = "journal";
+  #     Restart="no";
+  #   };
+  # };
   environment.systemPackages = [
-    pkgs.openmw
+    #pkgs.openmw
     pkgs.libcec
   ];
   console = {

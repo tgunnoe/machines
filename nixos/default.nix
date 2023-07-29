@@ -8,28 +8,45 @@
       common.imports = [
         ./nix.nix
         ./caches
+        ./gui
       ];
 
       my-home = {
-        users.users.${config.people.myself}.isNormalUser = true;
-        home-manager.users.${config.people.myself} = {
-          imports = [
-            self.homeModules.common-linux
+        users.users.${config.people.myself} = {
+          isNormalUser = true;
+          extraGroups = [
+            "adbusers"
+            "wheel"
+            "input"
+            "networkmanager"
+            "libvirtd"
+            "video"
+            "taskd"
+            "docker"
+            "plugdev"
+            "seat"
           ];
         };
-        home-manager.sharedModules = [
-          #inputs.nur.repos.rycee.hmModules.emacs-init
-        ];
+        home-manager.users.${config.people.myself} = {
+          imports = [
+            self.homeModules.default
+          ];
+        };
       };
 
       default.imports = [
         self.nixosModules.home-manager
-        #self.nixosModules.nur
+        #self.nur.nixosModules.nur
         self.nixosModules.my-home
         self.nixosModules.common
         ./self-ide.nix
         ./ssh-authorize.nix
         ./current-location.nix
+        ./android.nix
+        ./games.nix
+        ./audio.nix
+        ./misc.nix
+        #./harden.nix
       ];
     };
   };

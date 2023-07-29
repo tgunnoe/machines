@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, config, inputs, ... }:
 {
   flake = {
     homeModules = {
@@ -10,16 +10,36 @@
           ./direnv.nix
           #./nushell.nix
           #./powershell.nix
+          #./emacs.nix
+
         ];
       };
-      common-linux = {
+      default = { pkgs, ...}: {
         imports = [
           self.homeModules.common
-          #./bash.nix
-          #./vscode-server.nix
+          inputs.nur.nixosModules.nur
+          inputs.nix-doom-emacs.hmModule
+          ./gui
           ./zsh.nix
-          ./kitty.nix
-          ./emacs.nix
+        ];
+        programs.doom-emacs = {
+          enable = true;
+          doomPrivateDir = ./doom.d; # Directory containing your config.el, init.el
+          # and packages.el files
+        };
+        #programs.emacs.enable = true;
+        programs.git.enable = true;
+        home.packages = with pkgs; [
+          grim
+          slurp
+          kanshi
+          cage
+          clipman
+          waypipe
+          wdisplays
+          wlr-randr
+          xdg-desktop-portal-wlr
+          qt5.qtwayland
         ];
       };
     };

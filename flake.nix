@@ -1,15 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-pi4.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:tgunnoe/nixos-flake";
+    nixos-flake.url = "github:srid/nixos-flake";
 
     ragenix.url = "github:yaxitech/ragenix";
 
     hardware.url = "github:nixos/nixos-hardware";
+    hardware-pi4.url = "github:nixos/nixos-hardware?rev=ca29e25c39b8e117d4d76a81f1e229824a9b3a26";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -34,33 +36,37 @@
         ./nixos
       ];
 
-      flake =
-        {
-          nixosConfigurations = {
-            sietch-tabr = self.nixos-flake.lib.mkARMLinuxSystem {
-              #system = "aarch64-linux";
-              imports = [
-                ./systems/sietch-tabr.nix
-               # self.nixosModules.default
-              ];
-            };
-            chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
-
-              imports = [
-                ./systems/chapterhouse.nix
-                self.nixosModules.default
-              ];
-            };
-          };
-
-          homeModules.default = { pkgs, ... }: {
+      flake = {
+        nixosConfigurations = {
+          sietch-tabr = self.nixos-flake.lib.mkLinuxSystem "aarch64-linux" {
             imports = [
-              #inputs.nur.repos.rycee.hmModules.emacs-init
+              ./systems/sietch-tabr.nix
+              self.nixosModules.default
             ];
-            #programs.git.enable = true;
-            #programs.starship.enable = true;
-            #programs.bash.enable = true;
+          };
+          chapterhouse = self.nixos-flake.lib.mkLinuxSystem "x86_64-linux" {
+            imports = [
+              ./systems/chapterhouse.nix
+              self.nixosModules.default
+            ];
           };
         };
+
+        perSystem = { self', system, pkgs, lib, config, inputs', ... }: {
+          packages.default = self'.packages.activate;
+          devShells.default = pkgs.mkShell {
+            buildInputs = [
+              pkgs.alejandra
+              #pkgs.sops
+              #pkgs.ssh-to-age
+              # (
+              #   let nixosConfig = self.nixosConfigurations.actual;
+              #   in nixosConfig.config.jenkins-nix-ci.nix-prefetch-jenkins-plugins pkgs
+              # )
+            ];
+          };
+          formatter = pkgs.alejandra;
+        };
+      };
     };
 }

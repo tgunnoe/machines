@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 let
   userSubmodule = lib.types.submodule {
     options = {
@@ -6,6 +6,9 @@ let
         type = lib.types.str;
       };
       email = lib.mkOption {
+        type = lib.types.str;
+      };
+      hashedPassword = lib.mkOption {
         type = lib.types.str;
       };
       sshKeys = lib.mkOption {

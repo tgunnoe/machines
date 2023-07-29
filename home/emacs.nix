@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-
+{ config, pkgs, ... }:
 {
+  imports = [
+    #config.nur.repos.rycee.hmModules.emacs-init
+  ];
   services.emacs = {
     enable = true;
   };

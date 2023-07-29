@@ -5,7 +5,7 @@
 
   location = {
     # Quebec City
-    latitude = 46.813359;
-    longitude = -71.215796;
+    # latitude = 46.813359;
+    # longitude = -71.215796;
   };
 }

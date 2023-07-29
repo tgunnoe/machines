@@ -40,7 +40,7 @@
   hardware.bluetooth.enable = true;
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    #binfmt.emulatedSystems = [ "aarch64-linux" ];
     extraModulePackages = [ ];
     extraModprobeConfig = ''
       options kvm_intel nested=1
@@ -123,6 +123,17 @@
   #   };
 
   # };
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+    #    dns = lib.mkForce "none";
+    # extraConfig = ''
+    #   [main]
+    #   systemd-resolved=false
+    # '';
+  };
+  networking.nameservers =
+    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
   networking = {
     hostId = "e53dd769";
@@ -131,20 +142,25 @@
     enableIPv6 = false;
     useDHCP = false;
     interfaces = {
-      enp37s0 = {
-        useDHCP = true;
-        # ipv4 = {
-        #   addresses = [
-        #     {
-        #       address = "192.168.0.5";
-        #       prefixLength = 25;
-        #     }
-        #   ];
-        # };
-      };
+      # enp11s0 = {
+      #   useDHCP = false;
+      #   ipv4 = {
+      #     addresses = [
+      #       {
+      #         address = "192.168.1.5";
+      #         prefixLength = 25;
+      #       }
+      #     ];
+      #   };
+      # };
     };
   };
   services.openssh.openFirewall = true;
+  services.openssh.enable = true;
+  location = {
+    latitude = 38.0;
+    longitude = -80.0;
+  };
 
 # services.github-runners = {
 #   runner1 = {
