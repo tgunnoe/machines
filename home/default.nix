@@ -1,4 +1,4 @@
-{ self, config, inputs, ... }:
+{ self, config, lib, inputs, ... }:
 {
   flake = {
     homeModules = {
@@ -10,23 +10,23 @@
           ./direnv.nix
           #./nushell.nix
           #./powershell.nix
-          #./emacs.nix
+          ./kitty.nix
+          ./emacs.nix
 
         ];
       };
       default = { pkgs, ...}: {
         imports = [
           self.homeModules.common
-          inputs.nur.nixosModules.nur
           inputs.nix-doom-emacs.hmModule
           ./gui
           ./zsh.nix
         ];
-        programs.doom-emacs = {
-          enable = true;
-          doomPrivateDir = ./doom.d; # Directory containing your config.el, init.el
-          # and packages.el files
-        };
+        # programs.doom-emacs = {
+        #   enable = true;
+        #   doomPrivateDir = ./doom.d; # Directory containing your config.el, init.el
+        #   # and packages.el files
+        # };
         #programs.emacs.enable = true;
         programs.git.enable = true;
         home.packages = with pkgs; [

@@ -28,7 +28,7 @@ let
   };
 in
 {
-  #imports = [ ./waybar.nix ];
+  imports = [ ./waybar.nix ];
 
   home.packages = with pkgs; [
     swayidle
@@ -146,9 +146,12 @@ in
         smartBorders = "on";
       };
       input = {
+        "*" = {
+          xkb_variant = "dvorak";
+        };
         "6127:24801:TrackPoint_Keyboard_II" = {
-          xkb_layout = "dvorak";
-          xkb_variant = ",nodeadkeys";
+          xkb_layout = "us";
+          xkb_variant = "dvorak,nodeadkeys";
           xkb_options = "ctrl:nocaps";
           middle_emulation = "enabled";
           tap = "enabled";
@@ -158,8 +161,8 @@ in
           scroll_button = "disable";
         };
         "6127:24814:Lenovo_TrackPoint_Keyboard_II" = {
-          xkb_layout = "dvorak";
-          xkb_variant = ",nodeadkeys";
+          xkb_layout = "us";
+          xkb_variant = "dvorak,nodeadkeys";
           xkb_options = "ctrl:nocaps";
           middle_emulation = "enabled";
           tap = "enabled";

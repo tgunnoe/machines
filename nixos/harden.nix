@@ -1,9 +1,9 @@
 { flake, ... }: {
 
   # Firewall
-  #networking.firewall.enable = true;
+  networking.firewall.enable = true;
 
-  #security.sudo.execWheelOnly = true;
+  security.sudo.execWheelOnly = true;
 
   security.sudo.wheelNeedsPassword = false;
   users.users.${flake.config.people.myself} = {
@@ -12,13 +12,18 @@
 
   security.auditd.enable = true;
   security.audit.enable = true;
+  security.polkit.enable = true;
 
   services = {
     openssh = {
       enable = true;
+      challengeResponseAuthentication = false;
       settings.PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
       settings.PasswordAuthentication = false;
       allowSFTP = false;
+      forwardX11 = true;
+      startWhenNeeded = true;
+
     };
     # fail2ban = {
     #   enable = true;
@@ -29,4 +34,6 @@
   };
   nix.settings.allowed-users = [ "root" "@users" ];
   nix.settings.trusted-users = [ "root" flake.config.people.myself ];
+
+  users.mutableUsers = false;
 }

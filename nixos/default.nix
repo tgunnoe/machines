@@ -9,6 +9,13 @@
         ./nix.nix
         ./caches
         ./gui
+        ./terminal.nix
+        inputs.nur.nixosModules.nur
+        ({ config, ... }:{
+          home-manager.sharedModules = [
+            config.nur.repos.rycee.hmModules.emacs-init
+          ];
+        })
       ];
 
       my-home = {
@@ -44,9 +51,12 @@
         ./current-location.nix
         ./android.nix
         ./games.nix
+        ./music.nix
         ./audio.nix
         ./misc.nix
-        #./harden.nix
+        ./harden.nix
+        ./cryptocurrency.nix
+        ./virtualization.nix
       ];
     };
   };

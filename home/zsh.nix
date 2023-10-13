@@ -23,8 +23,19 @@
     sessionVariables = { RPROMPT = ""; };
 
     shellAliases = {
-      "ls" = "ls --color --group-directories-first";
       t = "cd $(mktemp -d)";
+      cat = "${pkgs.bat}/bin/bat";
+
+      df = "df -h";
+      du = "du -h";
+
+      ls = "eza";
+      la = "l -a";
+      ta = "la -T";
+
+      ps = "${pkgs.procs}/bin/procs";
+
+      rz = "exec zsh";
     };
 
     oh-my-zsh = {

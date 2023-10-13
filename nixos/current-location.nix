@@ -4,8 +4,7 @@
   time.timeZone = "America/New_York";
 
   location = {
-    # Quebec City
-    # latitude = 46.813359;
-    # longitude = -71.215796;
+    latitude = 36.3333333;
+    longitude = -86.366667;
   };
 }

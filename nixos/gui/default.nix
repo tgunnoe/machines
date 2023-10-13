@@ -9,7 +9,7 @@
     #./screencapture.nix
     ./fonts.nix
     ./touchpad-trackpoint.nix
-    ./autolock.nix
+    #./autolock.nix
     ./gnome-keyring.nix
     ./guiapps.nix
     #./polybar.nix
@@ -18,9 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     acpi
-    mpv
     imv
-    youtube-dl
     #xorg.xmessage
   ];
 
@@ -31,6 +29,19 @@
         command = "${pkgs.greetd.wlgreet}/bin/wlgreet";
         user = "tgunnoe";
       };
+    };
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+      wlr.enable = true;
+      # gtk portal needed to make gtk apps happy
+      gtkUsePortal = true;
     };
   };
 

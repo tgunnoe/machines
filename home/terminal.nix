@@ -17,7 +17,7 @@
   home.shellAliases = {
     g = "git";
     lg = "lazygit";
-    l = lib.getExe pkgs.exa;
+    l = lib.getExe pkgs.eza;
   };
 
   programs = {

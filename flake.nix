@@ -36,6 +36,7 @@
         ./nixos
       ];
 
+
       flake = {
         nixosConfigurations = {
           sietch-tabr = self.nixos-flake.lib.mkLinuxSystem "aarch64-linux" {
@@ -47,6 +48,13 @@
           chapterhouse = self.nixos-flake.lib.mkLinuxSystem "x86_64-linux" {
             imports = [
               ./systems/chapterhouse.nix
+              self.nixosModules.default
+            ];
+          };
+          arrakis = self.nixos-flake.lib.mkLinuxSystem {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            imports = [
+              ./systems/arrakis.nix
               self.nixosModules.default
             ];
           };
