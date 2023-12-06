@@ -20,7 +20,7 @@
       challengeResponseAuthentication = false;
       settings.PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
       settings.PasswordAuthentication = false;
-      allowSFTP = false;
+      allowSFTP = true;
       forwardX11 = true;
       startWhenNeeded = true;
 

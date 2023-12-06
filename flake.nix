@@ -45,7 +45,8 @@
               self.nixosModules.default
             ];
           };
-          chapterhouse = self.nixos-flake.lib.mkLinuxSystem "x86_64-linux" {
+          chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
+	    nixpkgs.hostPlatform = "x86_64-linux";
             imports = [
               ./systems/chapterhouse.nix
               self.nixosModules.default
