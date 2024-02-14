@@ -3,6 +3,8 @@
   environment.systemPackages = with pkgs; [
     #retroarchBare
     #pcsx2
+    cabextract
+    protontricks
     darkplaces
     devilutionx
     #factorio

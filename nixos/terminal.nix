@@ -14,7 +14,7 @@
       EDITOR = "emacsclient -nw";
       VISUAL = "emacsclient -nw";
       MOZ_ENABLE_WAYLAND = "1";
-      XDG_CURRENT_DESKTOP = "sway";
+      #XDG_CURRENT_DESKTOP = "sway";
     };
     systemPackages = with pkgs; [
       python3

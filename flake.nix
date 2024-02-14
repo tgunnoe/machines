@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-pi4.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -11,12 +10,11 @@
     ragenix.url = "github:yaxitech/ragenix";
 
     hardware.url = "github:nixos/nixos-hardware";
-    hardware-pi4.url = "github:nixos/nixos-hardware?rev=ca29e25c39b8e117d4d76a81f1e229824a9b3a26";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-match.url = "github:srid/nixpkgs-match";
-    nuenv.url = "github:DeterminateSystems/nuenv";
+
     devour-flake.url = "github:srid/devour-flake";
     devour-flake.flake = false;
     nur.url = "github:nix-community/nur";
