@@ -50,6 +50,7 @@
         ./ssh-authorize.nix
         ./current-location.nix
         ./android.nix
+        ./devices.nix
         ./games.nix
         ./music.nix
         ./audio.nix
