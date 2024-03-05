@@ -6,7 +6,7 @@
 
   programs.emacs = {
     enable = true;
-    #package = pkgs.emacsPgtk;
+    package = pkgs.emacs29-pgtk;
     init = {
       enable = true;
       recommendedGcSettings = true;
@@ -42,8 +42,10 @@
                                                     (abbreviate-file-name (buffer-file-name))
                                                   "%b"))))
                 ;; transparency
-                (set-frame-parameter (selected-frame) 'alpha '(90 . 80))
-                (add-to-list 'default-frame-alist '(alpha . (90 . 80)))
+                ;;(set-frame-parameter (selected-frame) 'alpha '(90 . 80))
+                ;;(add-to-list 'default-frame-alist '(alpha . (90 . 80)))
+                (set-frame-parameter nil 'alpha-background 70)
+                (add-to-list 'default-frame-alist '(alpha-background . 70))
 
                 ;; Accept 'y' and 'n' rather than 'yes' and 'no'.
                 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -360,13 +362,21 @@
                 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
                 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
+        (setq visual-fill-column-center-text t
+          visual-fill-column-width 110
+          org-present-startup-folded 2)
 
         (defun my/org-present-start ()
+          (display-line-numbers-mode 0)
           (visual-fill-column-mode 1)
           (visual-line-mode 1))
         (defun my/org-present-end ()
           (visual-fill-column-mode 0)
-          (visual-line-mode 0))
+          (visual-line-mode 0)
+          (display-line-numbers-mode 1))
+
+        (add-hook 'org-present-mode-hook 'my/org-present-start)
+        (add-hook 'org-present-mode-quit-hook 'my/org-present-end)
 
       '';
 
@@ -1192,24 +1202,11 @@
           command = [ "org-babel-execute:nix" ];
           hook = [ "(nix-mode . subword-mode)" ];
           config = ''
-            :init/defun*
-                    (org-babel-execute:nix (body params)
-                        "Execute a block of Nix code with org-babel."
-                        (message "executing Nix source code block")
-                        (let ((E (cdr (assoc :E params)))
-                            (in-file (unless E (org-babel-temp-file "n" ".nix")))
-                            (show-trace (cdr (assoc :show-trace params)))
-                            (json (cdr (assoc :json params)))
-                            (xml (cdr (assoc :xml params))))
-                        (unless E (with-temp-file in-file (insert body)))
-                        (org-babel-eval
-                            (format "nix-instantiate --read-write-mode --eval %s %s %s %s"
-                                (if show-trace "--show-trace" "")
-                                (if json "--json" "")
-                                (if xml "--xml" "")
-                                (if E (format "-E '%s'" body) (org-babel-process-file-name in-file)))
-                        "")))
+
           '';
+        };
+        ob-nix = {
+          enable = true;
         };
         eglot = {
           enable = true;
@@ -1259,7 +1256,8 @@
               (org-mode
                 . (lambda ()
                   (add-hook 'completion-at-point-functions
-                            'pcomplete-completions-at-point nil t)))
+                            'pcomplete-completions-at-point nil t)
+                  (add-hook 'display-line-numbers-mode 0)))
             ''
           ];
           config = ''
@@ -1267,7 +1265,7 @@
             (setq org-reverse-note-order t
                   org-use-fast-todo-selection t
                   org-adapt-indentation t
-                  org-ellipsis " ⏴")
+                  org-ellipsis " ⯇")
 
             ;; html export stuff
             (setq custom-html-preamble "
@@ -1519,8 +1517,8 @@
         org-present = {
           enable = true;
           hook = [
-            "('org-present-mode-hook 'my/org-present-start)"
-            "('org-present-mode-quit-hook 'my/org-present-end)"
+            "(add-hook 'org-present-mode-hook 'my/org-present-start)"
+            "(add-hook 'org-present-mode-quit-hook 'my/org-present-end)"
           ];
         };
         visual-fill-column = {
