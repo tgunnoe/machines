@@ -1,4 +1,4 @@
-{ flake, self, lib, pkgs, modulesPath, config, ... }:
+{ flake, lib, pkgs, modulesPath, config, ... }:
 
 {
   imports = [
@@ -104,8 +104,10 @@
       outer = 5;
     };
     output = {
+      "*" = {
+        bg = "${flake.self}/artwork/background.jpg fill";
+      };
       eDP-1 = {
-        #bg = "${self}/artwork/background.jpg fill";
         resolution = "2256x1504@60hz";
         scale = "1.5";
         position = "3440 2508";
@@ -170,10 +172,11 @@
       wifi.backend = "iwd";
     };
     nameservers =
-      [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      [ "1.1.1.1" "1.0.0.1" ];
     wireless.iwd.enable = true;
   };
   services.openssh = {
+    enable = true;
     hostKeys =
       [
         {
