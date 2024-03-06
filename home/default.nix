@@ -12,6 +12,7 @@
           #./powershell.nix
           ./kitty.nix
           ./emacs.nix
+          ./zellij.nix
 
         ];
       };
@@ -37,6 +38,7 @@
           clipman
           waypipe
           wdisplays
+          wdomirror
           wlr-randr
           xdg-desktop-portal-wlr
           qt5.qtwayland
