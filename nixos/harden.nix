@@ -9,7 +9,6 @@
   users.users.${flake.config.people.myself} = {
     extraGroups = [ "wheel" ];
   };
-
   security.auditd.enable = true;
   security.audit.enable = true;
   security.polkit.enable = true;
@@ -36,4 +35,8 @@
   nix.settings.trusted-users = [ "root" flake.config.people.myself ];
 
   users.mutableUsers = false;
+
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.pinentryFlavor = "curses";
+  programs.gnupg.agent.enableSSHSupport = true;
 }
