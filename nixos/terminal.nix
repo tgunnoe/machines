@@ -1,5 +1,7 @@
 { flake, config, pkgs, lib, ... }: {
 
+  users.users.${flake.config.people.myself}.shell = pkgs.zsh;
+  programs.zsh.enable = true;
   documentation.dev.enable = true;
   programs.bash = {
     interactiveShellInit = ''
@@ -17,7 +19,7 @@
       #XDG_CURRENT_DESKTOP = "sway";
     };
     systemPackages = with pkgs; [
-      python3
+      #python3
 
       binutils
       coreutils
@@ -67,13 +69,12 @@
 
       appimage-run
       cntr
-      adoptopenjdk-icedtea-web
 
       #libbitcoin-explorer
       wf-recorder
-      boost175
+      boost
       bottom
-      clang
+      #clang
       cmake
       encfs
       file
@@ -86,7 +87,7 @@
       gpgme
 
       #go
-      gopls
+      #gopls
       #gopass
       go-2fa
       imagemagick
@@ -100,8 +101,8 @@
       nixpkgs-review
       nil
 
-      nodejs
-      yarn
+      #nodejs
+      #yarn
       libusb1
 
       texlive.combined.scheme-full
