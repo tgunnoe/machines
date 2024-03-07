@@ -14,6 +14,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-match.url = "github:srid/nixpkgs-match";
+    #nuenv.url = "github:DeterminateSystems/nuenv";
 
     devour-flake.url = "github:srid/devour-flake";
     devour-flake.flake = false;

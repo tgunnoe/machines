@@ -17,7 +17,7 @@
     package = pkgs.nixUnstable; # Need 2.15 for bug fixes
     nixPath = [ "nixpkgs=${flake.inputs.nixpkgs}" ]; # Enables use of `nix-shell -p ...` etc
     registry.nixpkgs.flake = flake.inputs.nixpkgs; # Make `nix shell` etc use pinned nixpkgs
-    gc.automatic = true;
+    #gc.automatic = true;
     optimise.automatic = true;
     settings = {
       experimental-features = "nix-command flakes repl-flake";
@@ -26,6 +26,7 @@
       netrc-file = /home/${flake.config.people.myself}/.netrc;
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       sandbox = true;
+      trusted-users = [ "@wheel" "tgunnoe" ];
     };
     extraOptions = ''
       min-free = 536870912
