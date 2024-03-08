@@ -7,7 +7,7 @@
     protontricks
     darkplaces
     devilutionx
-    #factorio
+    factorio
     openra
     openal
     gzdoom
