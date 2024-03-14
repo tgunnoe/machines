@@ -92,7 +92,7 @@
       '';
       secrets = { };
     };
-    #zfs.enableUnstable = true;
+    zfs.package = pkgs.zfs_unstable;
   };
   console = {
     keyMap = lib.mkForce "dvorak";
@@ -154,7 +154,6 @@
     enable = true;
     cpuFreqGovernor = lib.mkDefault "powersave";
   };
-  services.tlp.enable = true;
   services.logind.extraConfig = "HandlePowerKey=ignore";
   services.thermald.enable = true;
   services.hdapsd.enable = true;

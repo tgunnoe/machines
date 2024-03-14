@@ -37,6 +37,5 @@
   users.mutableUsers = false;
 
   programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.pinentryFlavor = "curses";
   programs.gnupg.agent.enableSSHSupport = true;
 }
