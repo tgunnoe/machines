@@ -30,10 +30,10 @@
     signal-desktop
     slack
     tdesktop
-    gomuks
+    #gomuks
 
-    _1password
-    _1password-gui
+    #_1password
+    #_1password-gui
 
     # Torrent / P2P
     qbittorrent
@@ -56,6 +56,7 @@
     obs-studio
     ffmpeg-full
     #simplescreenrecorder
+    stremio
 
     # X stuff
     # caffeine-ng
