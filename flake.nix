@@ -44,7 +44,7 @@
             ];
           };
           chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
-	    nixpkgs.hostPlatform = "x86_64-linux";
+	          nixpkgs.hostPlatform = "x86_64-linux";
             imports = [
               ./systems/chapterhouse.nix
               self.nixosModules.default
@@ -55,6 +55,7 @@
             imports = [
               ./systems/arrakis.nix
               self.nixosModules.default
+              inputs.hardware.nixosModules.framework-11th-gen-intel
             ];
           };
         };
