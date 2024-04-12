@@ -123,10 +123,10 @@
         resolution = "1920x1080@60hz";
       };
       # "Beihai Century Joint Innovation Technology Co.,Ltd 34CHR Unknown" = {
-      "Unknown 34CHR 0x00000000" = {
+      "Beihai Century Joint Innovation Technology Co.,Ltd 34CHR Unknown" = {
         #bg = "${self}/artwork/background.jpg fill";
         resolution = "3440x1440@144hz";
-        position = "1159 1068";
+        position = "1192 1068";
 
 
         scale = "1";
