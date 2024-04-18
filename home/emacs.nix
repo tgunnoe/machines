@@ -1158,7 +1158,12 @@
                   '("--ghc-options=+RTS -M500m -RTS -ferror-spans -fshow-loaded-modules"))
           '';
         };
-
+        purescript-mode = {
+          enable = true;
+          mode = [
+            ''("\\.purs\\'" . purescript-mode)''
+          ];
+        };
         haskell-cabal = {
           enable = true;
           mode = [ ''("\\.cabal\\'" . haskell-cabal-mode)'' ];
