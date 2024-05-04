@@ -112,25 +112,29 @@
         scale = "1.5";
         position = "3440 2508";
       };
-      "Ancor Communications Inc ASUS MG28U 0x00001BF4" = {
-        #bg = "${self}/artwork/background.jpg fill";
-        resolution = "2560x1440@60hz";
-        scale = "1";
-        position = "4944 590";
-        transform = "270";
-      };
-      "Optoma Corporation OPTOMA 1080P A7EH9220010" = {
-        resolution = "1920x1080@60hz";
-      };
       # "Beihai Century Joint Innovation Technology Co.,Ltd 34CHR Unknown" = {
       "Beihai Century Joint Innovation Technology Co.,Ltd 34CHR Unknown" = {
         #bg = "${self}/artwork/background.jpg fill";
         resolution = "3440x1440@144hz";
         position = "1192 1068";
-
-
         scale = "1";
       };
+      "Ancor Communications Inc ASUS MG28U 0x00011AF4" = {
+        #bg = "${self}/artwork/background.jpg fill";
+        resolution = "2560x1440@60hz";
+        scale = "1";
+        position = "4944 1850";
+      };
+      "Optoma Corporation OPTOMA 1080P A7EH9220010" = {
+        resolution = "1920x1080@60hz";
+        position = "3024 1428";
+      };
+      "MON Monitor 8R33926O00QS" = {
+        resolution = "1920x1080@60hz";
+        position = "7504 2102";
+        transform = "270";
+      };
+
 
     };
     input = {
