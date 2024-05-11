@@ -32,6 +32,7 @@
             "docker"
             "plugdev"
             "seat"
+            "vboxusers"
           ];
         };
         home-manager.users.${config.people.myself} = {

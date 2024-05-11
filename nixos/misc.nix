@@ -10,6 +10,6 @@
   programs.extra-container.enable = true;
   #programs.sysdig.enable = true;
 
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
+  #services.printing.enable = true;
+  #services.printing.drivers = [ pkgs.hplip ];
 }
