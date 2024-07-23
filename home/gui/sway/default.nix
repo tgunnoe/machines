@@ -147,7 +147,7 @@ in
       };
       input = {
         "*" = {
-          xkb_variant = "dvorak";
+         xkb_variant = "dvorak";
         };
         "6127:24801:TrackPoint_Keyboard_II" = {
           xkb_layout = "us";

@@ -21,6 +21,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     imv
+    gparted
     #xorg.xmessage
   ];
 

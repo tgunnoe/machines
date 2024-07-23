@@ -47,7 +47,6 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
-
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     kernelPackages = pkgs.linuxPackages_latest;
@@ -92,7 +91,7 @@
       '';
       secrets = { };
     };
-    zfs.package = pkgs.zfs_unstable;
+    #zfs.package = pkgs.zfs_unstable;
   };
   console = {
     keyMap = lib.mkForce "dvorak";
