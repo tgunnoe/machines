@@ -44,7 +44,7 @@
       ];
       wlr.enable = true;
       # gtk portal needed to make gtk apps happy
-      gtkUsePortal = true;
+      #gtkUsePortal = true;
     };
   };
 

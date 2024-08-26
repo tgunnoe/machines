@@ -12,11 +12,8 @@
     # onlyoffice-bin
     #obsidian
     nomacs
-    nyxt
+    #nyxt
     pcmanfm
-
-    # Cryptocurrency
-    electrum
 
     # Productivity
     libreoffice
