@@ -49,7 +49,6 @@
   };
 
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
   hardware.pulseaudio.enable = false;
 
   # Speed up boot

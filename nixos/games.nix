@@ -39,8 +39,8 @@
   #services.xserver.windowManager.steam = { enable = true; };
 
   # 32-bit support needed for steam
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
+  #hardware.opengl.driSupport = true;
+  #hardware.opengl.driSupport32Bit = true;
 
   hardware.pulseaudio.support32Bit = true;
 

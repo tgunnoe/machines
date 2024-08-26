@@ -49,7 +49,7 @@
   security.sudo.wheelNeedsPassword = false;
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" "g_ether" "i2c-dev" "i2c-i801" ];
 
     # source: https://grahamc.com/blog/nixos-on-zfs
@@ -243,10 +243,10 @@
   #services.chrony.enable = true;
   services.timesyncd.enable = false;
 
-  sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
-    enable = true;
-    volumeStep = "1dB";
-  };
+  #sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
+  #  enable = true;
+  #  volumeStep = "1dB";
+  #};
 
   services.tlp.settings = {
     CPU_SCALING_GOVERNOR_ON_AC = "performance";

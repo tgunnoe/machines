@@ -117,7 +117,7 @@
       tree
       viu
       wget
-      youtube-dl
+      #youtube-dl
       #lmms
       #fluidsynth
       #audacity
