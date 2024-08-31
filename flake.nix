@@ -32,6 +32,7 @@
         ./users
         ./home
         ./nixos
+        ./shells
       ];
 
 
@@ -59,22 +60,6 @@
               inputs.ragenix.nixosModules.age
             ];
           };
-        };
-
-        perSystem = { self', system, pkgs, lib, config, inputs', ... }: {
-          packages.default = self'.packages.activate;
-          devShells.default = pkgs.mkShell {
-            buildInputs = [
-              pkgs.alejandra
-              inputs.ragenix.packages.default
-              pkgs.age # age command line tool
-              # (
-              #   let nixosConfig = self.nixosConfigurations.actual;
-              #   in nixosConfig.config.jenkins-nix-ci.nix-prefetch-jenkins-plugins pkgs
-              # )
-            ];
-          };
-          formatter = pkgs.alejandra;
         };
       };
     };
