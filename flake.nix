@@ -8,6 +8,7 @@
     nixos-flake.url = "github:srid/nixos-flake";
 
     ragenix.url = "github:yaxitech/ragenix";
+    ragenix.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
     disko.url = "github:nix-community/disko";
@@ -21,7 +22,6 @@
 
     emacs.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-
   };
 
   outputs = inputs@{ self, ... }:
@@ -56,6 +56,7 @@
               ./systems/arrakis.nix
               self.nixosModules.default
               inputs.hardware.nixosModules.framework-11th-gen-intel
+              inputs.ragenix.nixosModules.age
             ];
           };
         };
