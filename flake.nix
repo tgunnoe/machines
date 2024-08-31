@@ -66,8 +66,8 @@
           devShells.default = pkgs.mkShell {
             buildInputs = [
               pkgs.alejandra
-              #pkgs.sops
-              #pkgs.ssh-to-age
+              inputs.ragenix.packages.default
+              pkgs.age # age command line tool
               # (
               #   let nixosConfig = self.nixosConfigurations.actual;
               #   in nixosConfig.config.jenkins-nix-ci.nix-prefetch-jenkins-plugins pkgs
