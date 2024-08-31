@@ -37,7 +37,9 @@
       neededForBoot = true;
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/zvol/rpool/encrypted/swap"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
