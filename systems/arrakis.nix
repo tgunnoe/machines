@@ -1,6 +1,6 @@
 { flake, lib, pkgs, modulesPath, config, ... }:
 
-{
+rec {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     flake.inputs.disko.nixosModules.disko
@@ -159,6 +159,7 @@
     enable = true;
     cpuFreqGovernor = lib.mkDefault "powersave";
   };
+  #age.secrets.wifi.file = ../secrets/wifi/galaxian5g.age;
   services.logind.extraConfig = "HandlePowerKey=ignore";
   services.thermald.enable = true;
   services.hdapsd.enable = true;
@@ -177,7 +178,13 @@
     };
     nameservers =
       [ "1.1.1.1" "1.0.0.1" ];
-    wireless.iwd.enable = true;
+    wireless = {
+      iwd.enable = true;
+      networks = {
+      };
+      #environmentFile = age.secrets..file = ../secrets/gh-runner/partner-chains/token-1.age;
+      #environmentFile = age.secrets.wifi.file.path;
+    };
   };
   services.openssh = {
     enable = true;

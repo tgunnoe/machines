@@ -15,13 +15,16 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-match.url = "github:srid/nixpkgs-match";
-
+    nix-doom-emacs-unstraightened = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+    };
+    doom-config.url = "path:/home/tgunnoe/src/github.com/tgunnoe/machines/home/doom.d/doomDir";
+    doom-config.flake = false;
     devour-flake.url = "github:srid/devour-flake";
     devour-flake.flake = false;
     nur.url = "github:nix-community/nur";
 
     emacs.url = "github:nix-community/emacs-overlay";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
   };
 
   outputs = inputs@{ self, ... }:
@@ -34,8 +37,6 @@
         ./nixos
         ./shells
       ];
-
-
       flake = {
         nixosConfigurations = {
           sietch-tabr = self.nixos-flake.lib.mkLinuxSystem "aarch64-linux" {
@@ -45,7 +46,7 @@
             ];
           };
           chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
-	          nixpkgs.hostPlatform = "x86_64-linux";
+            nixpkgs.hostPlatform = "x86_64-linux";
             imports = [
               ./systems/chapterhouse.nix
               self.nixosModules.default
