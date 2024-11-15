@@ -12,7 +12,7 @@
     };
   };
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi4;
+    #kernelPackages = pkgs.linuxPackages_latest;
     tmpOnTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
@@ -84,17 +84,17 @@
     pkgs.libcec
   ];
   console = {
-    keyMap = "dvorak";
+    #keyMap = "dvorak";
     earlySetup = true;
   };
-  sound.enable = true;
+  #sound.enable = true;
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.enableRedistributableFirmware = true;
 
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
   # home-manager.users.tgunnoe.wayland.windowManager.sway.config = {
   #   gaps = {
   #     inner = 20;
@@ -138,5 +138,5 @@
     allowUnfree = true;
   };
   powerManagement.cpuFreqGovernor = "ondemand";
-  system.stateVersion = "21.11";
+  system.stateVersion = "24.05";
 }

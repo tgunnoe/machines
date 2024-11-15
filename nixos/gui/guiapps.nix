@@ -5,10 +5,10 @@
 
   # Apps I use on desktops and laptops
   environment.systemPackages = with pkgs; [
-    brave
+    #brave
     firefox-wayland
-    chromium
-    tor-browser-bundle-bin
+    #chromium
+    #tor-browser-bundle-bin
     # onlyoffice-bin
     #obsidian
     nomacs
@@ -16,16 +16,16 @@
     pcmanfm
 
     # Productivity
-    libreoffice
+    #libreoffice
     gimp
-    inkscape
+    #inkscape
     mupdf
 
     # IM
-    discord
-    element-desktop
-    signal-desktop
-    slack
+    #discord
+    #element-desktop
+    #signal-desktop
+    #slack
     tdesktop
     #gomuks
 
@@ -44,13 +44,13 @@
     qt5.qtgraphicaleffects
     stdmanpages
 
-    gnome3.adwaita-icon-theme
+    gnome.adwaita-icon-theme
     # video pkgs
     glxinfo
     vlc
-    untrunc
+    #untrunc
     mpv
-    obs-studio
+    #obs-studio
     ffmpeg-full
     #simplescreenrecorder
     stremio

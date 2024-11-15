@@ -50,15 +50,15 @@
         ./self-ide.nix
         ./ssh-authorize.nix
         ./current-location.nix
-        ./android.nix
+        #./android.nix
         ./devices.nix
-        ./games.nix
-        ./music.nix
+        #./games.nix
+        #./music.nix
         ./audio.nix
         ./misc.nix
-        ./harden.nix
-        ./cryptocurrency.nix
-        ./virtualization.nix
+        #./harden.nix
+        #./cryptocurrency.nix
+        #./virtualization.nix
       ];
     };
   };
