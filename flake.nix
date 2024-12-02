@@ -44,6 +44,13 @@
               self.nixosModules.default
             ];
           };
+          jacurutu = self.nixos-flake.lib.mkLinuxSystem {
+            nixpkgs.hostPlatform = "aarch64-linux";
+            imports = [
+              ./systems/jacurutu.nix
+              self.nixosModules.default
+            ];
+          };
           chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
             nixpkgs.hostPlatform = "x86_64-linux";
             imports = [

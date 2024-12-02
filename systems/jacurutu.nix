@@ -1,20 +1,28 @@
-{ pkgs, flake, ... }:
+{ pkgs, lib, flake, modulesPath, ... }:
 {
   imports = [
     "${flake.inputs.hardware}/raspberry-pi/4"
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/a412b798-cea1-4acb-ae90-f077b8f248b2";
       fsType = "ext4";
-      options = [ "noatime" ];
     };
-  };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/12D8-1677";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/3e6aa67b-1670-4b90-9f72-ece6af5ec2fe"; }
+    ];
   boot = {
-    #kernelPackages = pkgs.linuxPackages_latest;
-    tmpOnTmpfs = true;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
+    kernelPackages = pkgs.linuxPackages;
+    #tmpOnTmpfs = true;
+    initrd.availableKernelModules = [ "uas" "usbhid" "usb_storage" ];
     # ttyAMA0 is the serial console broken out to the GPIO
     kernelParams = [
         "8250.nr_uarts=1"
@@ -23,12 +31,17 @@
         # Some gui programs need this
         "cma=128M"
     ];
-    loader.raspberryPi.firmwareConfig = ''
-      dtparam=audio=on
-    '';
+    loader = {
+      #raspberryPi.firmwareConfig = ''
+      #  dtparam=audio=on
+      #'';
+      systemd-boot.enable = true;
+      generic-extlinux-compatible.enable = false;
+      efi.canTouchEfiVariables = true;
+    };
   };
   networking = {
-    hostName = "sietch-tabr";
+    hostName = "jacurutu";
     firewall.allowedTCPPorts = [ 8000 30000 ];
     firewall.allowedUDPPorts = [ 30000 ];
     useDHCP = false;
@@ -87,16 +100,24 @@
   ];
   console = {
     #keyMap = "dvorak";
-    earlySetup = true;
+    #earlySetup = true;
   };
   #sound.enable = true;
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  #hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.enableRedistributableFirmware = true;
 
   hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    #media-session.enable = true;
+  };
   # home-manager.users.tgunnoe.wayland.windowManager.sway.config = {
   #   gaps = {
   #     inner = 20;
@@ -139,6 +160,6 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-  powerManagement.cpuFreqGovernor = "ondemand";
+  #powerManagement.cpuFreqGovernor = "ondemand";
   system.stateVersion = "24.05";
 }

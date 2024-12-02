@@ -10,9 +10,9 @@
           ./direnv.nix
           #./nushell.nix
           #./powershell.nix
-          ./kitty.nix
-          ./emacs.nix
-          ./zellij.nix
+          #./kitty.nix
+          #./emacs.nix
+          #./zellij.nix
 
         ];
       };

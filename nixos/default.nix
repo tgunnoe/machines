@@ -10,12 +10,12 @@
         ./caches
         ./gui
         ./terminal.nix
-        inputs.nur.nixosModules.nur
-        ({ config, ... }:{
-          home-manager.sharedModules = [
-            config.nur.repos.rycee.hmModules.emacs-init
-          ];
-        })
+        #inputs.nur.nixosModules.nur
+        #({ config, ... }:{
+        #  home-manager.sharedModules = [
+        #    config.nur.repos.rycee.hmModules.emacs-init
+        #  ];
+        #})
       ];
 
       my-home = {

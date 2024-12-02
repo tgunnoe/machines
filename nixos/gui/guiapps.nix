@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-  imports = [
+{ pkgs, ... }: { imports = [
     #./vscode.nix
   ];
 
@@ -44,7 +43,7 @@
     qt5.qtgraphicaleffects
     stdmanpages
 
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     # video pkgs
     glxinfo
     vlc

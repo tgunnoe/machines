@@ -14,7 +14,7 @@
       noto-fonts-emoji
       fira-code
       cascadia-code
-      nerdfonts
+      #nerdfonts
       powerline-fonts
       b612
     ];
