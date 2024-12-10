@@ -26,9 +26,12 @@
         ];
         programs.doom-emacs = {
           enable = true;
-          doomDir = inputs.doom-config;
-          #doomLocalDir = "~/.local/share/nix-doom";
-          #experimentalFetchTree = true;
+          doomDir = inputs.self + /home/doom.d;
+          experimentalFetchTree = true;
+          extraPackages = epkgs: with epkgs; [
+            vterm
+            #chatgpt-shell
+          ];
 
         };
         services.emacs.enable = true;
