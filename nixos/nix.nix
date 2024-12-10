@@ -20,7 +20,7 @@
     #gc.automatic = true;
     optimise.automatic = true;
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = "nix-command flakes fetch-closure";
       # Nullify the registry for purity.
       flake-registry = builtins.toFile "empty-flake-registry.json" ''{"flakes":[],"version":2}'';
       netrc-file = /home/${flake.config.people.myself}/.netrc;
