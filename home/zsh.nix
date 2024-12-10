@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
-  programs.zsh = {
+  programs.zsh = let
+    binShForEmacs = ''
+      # In Emacs TRAMP sessions, use plain ‘/bin/sh’:
+      [ "$TERM" != "dumb" ] || exec /bin/sh
+    '';
+  in {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
@@ -13,10 +18,9 @@
       ignoreDups = true;
     };
     initExtraFirst = "
-      [[ $TERM == \"dumb\" ]] && unsetopt zle && PS1='$ ' && return
-      ZSH_DISABLE_COMPFIX=true\n
     ";
     initExtra = "
+      ${binShForEmacs}
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme\n
 
     ";
