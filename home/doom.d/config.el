@@ -48,6 +48,9 @@
   (setq-default cursor-type '(bar . 2))
   (blink-cursor-mode t))
 
+(setq visual-fill-column-width 110
+      visual-fill-column-center-text t)
+
 (add-hook! after-init
   (setq dired-mode-hook (remove 'dired-omit-mode dired-mode-hook)))  ; I want `..'
 
