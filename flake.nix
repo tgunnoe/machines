@@ -17,9 +17,8 @@
     nixpkgs-match.url = "github:srid/nixpkgs-match";
     nix-doom-emacs-unstraightened = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    doom-config.url = "path:/home/tgunnoe/src/github.com/tgunnoe/machines/home/doom.d/doomDir";
-    doom-config.flake = false;
     devour-flake.url = "github:srid/devour-flake";
     devour-flake.flake = false;
     nur.url = "github:nix-community/nur";

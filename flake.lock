@@ -98,19 +98,6 @@
         "type": "github"
       }
     },
-    "doom-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1730480256,
-        "narHash": "sha256-Tg2+uKzEhxA7dBLQgHxsetR4WG+EtUKCAp+xoCJwtgU=",
-        "path": "/home/tgunnoe/src/github.com/tgunnoe/machines/home/doom.d/doomDir",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/tgunnoe/src/github.com/tgunnoe/machines/home/doom.d/doomDir",
-        "type": "path"
-      }
-    },
     "doomemacs": {
       "flake": false,
       "locked": {
@@ -322,7 +309,9 @@
       "inputs": {
         "doomemacs": "doomemacs",
         "emacs-overlay": "emacs-overlay",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "systems": "systems_3"
       },
       "locked": {
@@ -403,7 +392,7 @@
     "nixpkgs-match": {
       "inputs": {
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1672924430,
@@ -437,20 +426,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1730170245,
-        "narHash": "sha256-PRq4vJjDa+m1mNwkV9H7zVzMhuMqsHJrTGx0iJZ0e0w=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "30c9efeef01e2ad4880bff6a01a61dd99536b3c9",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1728492678,
         "narHash": "sha256-9UTxR8eukdg+XZeHgxW5hQA9fIKHsKCdOIUycTryeVw=",
         "owner": "nixos",
@@ -465,7 +440,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1672756850,
         "narHash": "sha256-Smbq3+fitwA13qsTMeaaurv09/KVbZfW7m7lINwzDGA=",
@@ -524,14 +499,13 @@
       "inputs": {
         "devour-flake": "devour-flake",
         "disko": "disko",
-        "doom-config": "doom-config",
         "emacs": "emacs",
         "flake-parts": "flake-parts",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "nix-doom-emacs-unstraightened": "nix-doom-emacs-unstraightened",
         "nixos-flake": "nixos-flake",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-match": "nixpkgs-match",
         "nur": "nur",
         "ragenix": "ragenix"
