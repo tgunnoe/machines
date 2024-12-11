@@ -9,11 +9,25 @@
 (global-unset-key (kbd "<insert>"))
 
 ;; Theme, but adjust a few faces to match the original ‘solarized-theme’:
-(setq doom-theme 'doom-solarized-dark
-      doom-font (font-spec :family "Iosevka Nerd Font Propo" :size 12.0 :weight 'light)
-      doom-serif-font (font-spec :family (cond ((eq system-type 'gnu/linux) "Noto Serif")
-                                               (t "Georgia"))))
+;; (setq doom-theme 'doom-solarized-dark
+;;       doom-font (font-spec :family "Iosevka Nerd Font Propo" :size 12.0 :weight 'light)
+;;       doom-serif-font (font-spec :family (cond ((eq system-type 'gnu/linux) "Noto Serif")
+;;                                                (t "Georgia"))))
 (add-to-list 'default-frame-alist '(background-color . "#002b36"))  ; prevent initial flicker
+                                        ;
+(set-frame-parameter (selected-frame) 'alpha '(90 . 80))
+(add-to-list 'default-frame-alist '(alpha . (90 . 80)))
+(custom-set-faces!
+  '(default :background nil))
+;;(set-frame-parameter nil 'alpha-background 70)
+;;(add-to-list 'default-frame-alist '(alpha-background . 70))
+(add-hook 'after-load-theme-hook
+          (lambda ()
+            (custom-set-faces
+             '(default ((t (:background nil))))
+             '(line-number ((t (:background nil))))
+             '(line-number-current-line ((t (:background nil)))))))
+
 (add-hook! doom-load-theme
   (after! font-lock
     (set-face-attribute 'font-lock-constant-face      nil :foreground (doom-color 'blue))
