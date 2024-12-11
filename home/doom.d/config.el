@@ -13,7 +13,7 @@
 ;;       doom-font (font-spec :family "Iosevka Nerd Font Propo" :size 12.0 :weight 'light)
 ;;       doom-serif-font (font-spec :family (cond ((eq system-type 'gnu/linux) "Noto Serif")
 ;;                                                (t "Georgia"))))
-(add-to-list 'default-frame-alist '(background-color . "#002b36"))  ; prevent initial flicker
+;; (add-to-list 'default-frame-alist '(background-color . "#002b36"))  ; prevent initial flicker
                                         ;
 (set-frame-parameter (selected-frame) 'alpha '(90 . 80))
 (add-to-list 'default-frame-alist '(alpha . (90 . 80)))
