@@ -4,6 +4,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
 
@@ -40,13 +41,17 @@
           sietch-tabr = self.nixos-flake.lib.mkLinuxSystem {
             nixpkgs.hostPlatform = "aarch64-linux";
             imports = [
+              inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+              inputs.raspberry-pi-nix.nixosModules.sd-image
               ./systems/sietch-tabr.nix
-              self.nixosModules.default
+              #self.nixosModules.default
             ];
           };
           jacurutu = self.nixos-flake.lib.mkLinuxSystem {
             nixpkgs.hostPlatform = "aarch64-linux";
             imports = [
+              inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+              inputs.raspberry-pi-nix.nixosModules.sd-image
               ./systems/jacurutu.nix
               self.nixosModules.default
             ];

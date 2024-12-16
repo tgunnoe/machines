@@ -10,7 +10,7 @@
     #tor-browser-bundle-bin
     # onlyoffice-bin
     #obsidian
-    nomacs
+    #nomacs
     #nyxt
     pcmanfm
 
@@ -25,15 +25,15 @@
     #element-desktop
     #signal-desktop
     #slack
-    tdesktop
+    #tdesktop
     #gomuks
 
     #_1password
     #_1password-gui
 
     # Torrent / P2P
-    qbittorrent
-    transmission-gtk
+    #qbittorrent
+    #transmission-gtk
 
     librsvg
 
@@ -43,16 +43,16 @@
     qt5.qtgraphicaleffects
     stdmanpages
 
-    adwaita-icon-theme
+    #adwaita-icon-theme
     # video pkgs
     glxinfo
-    vlc
+    #vlc
     #untrunc
     mpv
     #obs-studio
-    ffmpeg-full
+    #ffmpeg-full
     #simplescreenrecorder
-    stremio
+    #stremio
 
     # X stuff
     # caffeine-ng

@@ -67,7 +67,7 @@
       iproute2
       protonvpn-cli_2
 
-      appimage-run
+      #appimage-run
       cntr
 
       #libbitcoin-explorer
@@ -122,7 +122,7 @@
       #lmms
       #fluidsynth
       #audacity
-      obs-studio
+      #obs-studio
       #platformio
       #obs-wlrobs
 
