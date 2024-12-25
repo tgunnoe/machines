@@ -8,12 +8,19 @@
       wlan0.useDHCP = true;
       eth0.useDHCP = true;
     };
+    networkmanager = {
+      enable = false;
+      wifi.backend = "iwd";
+    };
+    nameservers =
+      [ "1.1.1.1" "1.0.0.1" ];
+    wireless.iwd.enable = true;
   };
-  raspberry-pi-nix.board = "bcm2711";
+  raspberry-pi-nix.board = "bcm2712";
   hardware = {
     raspberry-pi = {
       config = {
-        pi4 = {
+        pi5 = {
           options = {
             arm_boost = {
               enable = true;
@@ -72,6 +79,9 @@
   security.rtkit.enable = true;
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
+  #services.xserver.enable = true;
+  #services.xserver.desktopManager.xfce.enable = true;
+  #services.xserver.displayManager.lightdm.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

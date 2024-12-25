@@ -51,6 +51,7 @@
         ./ssh-authorize.nix
         ./current-location.nix
         #./android.nix
+        ./networking.nix
         ./devices.nix
         #./games.nix
         #./music.nix

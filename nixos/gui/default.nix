@@ -10,7 +10,7 @@
     ./fonts.nix
     ./touchpad-trackpoint.nix
     #./autolock.nix
-    ./gnome-keyring.nix
+    #./gnome-keyring.nix
     ./guiapps.nix
     #./polybar.nix
     ./hotplug.nix
