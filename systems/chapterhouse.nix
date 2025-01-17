@@ -40,7 +40,7 @@
   hardware.bluetooth.enable = true;
 
   boot = {
-    #binfmt.emulatedSystems = [ "aarch64-linux" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     extraModulePackages = [ ];
     extraModprobeConfig = ''
       options kvm_intel nested=1
