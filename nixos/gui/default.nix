@@ -15,9 +15,9 @@
     #./polybar.nix
     ./hotplug.nix
   ];
-  #services.xserver.desktopManager.gnome.enable = true;
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.enable = true;
   environment.systemPackages = with pkgs; [
     acpi
     imv
@@ -40,7 +40,7 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
-	      xdg-desktop-portal-gtk
+	      #xdg-desktop-portal-gtk
       ];
       wlr.enable = true;
       # gtk portal needed to make gtk apps happy
@@ -49,6 +49,7 @@
   };
 
   hardware.opengl.enable = true;
+
   hardware.pulseaudio.enable = false;
 
   # Speed up boot

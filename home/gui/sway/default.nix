@@ -62,7 +62,7 @@ in
     xdg-desktop-portal-wlr
     dmenu-wayland
     qt5.qtwayland
-    volnoti
+    #volnoti
 
   ];
   wayland.windowManager.sway = {

@@ -14,8 +14,8 @@
     containers.enable = true;
     waydroid.enable = true;
     docker.enable = true;
-    virtualbox.host.enable = true;
-    virtualbox.host.enableExtensionPack = true;
+    #virtualbox.host.enable = true;
+    #virtualbox.host.enableExtensionPack = true;
 
   };
   networking.firewall.trustedInterfaces = [ "waydroid0" ];

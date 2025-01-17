@@ -105,7 +105,7 @@
       #yarn
       libusb1
 
-      texlive.combined.scheme-full
+      #texlive.combined.scheme-full
       pandoc
       #orgtoinvoice
       sshfs

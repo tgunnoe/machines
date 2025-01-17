@@ -47,7 +47,7 @@
       options kvm_intel emulate_invalid_guest_state=0
       options kvm ignore_msrs=1
     '';
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-amd" ];
     kernelPatches = [ ];
 
@@ -138,7 +138,8 @@
   networking = {
     hostId = "e53dd769";
     hostName = "chapterhouse";
-    firewall.allowedTCPPorts = [ 8000 ];
+    firewall.allowedTCPPorts = [ 8000 5502];
+    firewall.allowedUDPPorts = [ 8000  5502];
     enableIPv6 = false;
     useDHCP = false;
     interfaces = {

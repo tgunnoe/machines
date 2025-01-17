@@ -6,6 +6,9 @@
       allowBroken = false;
       allowUnsupportedSystem = true;
       allowUnfree = true;
+      permittedInsecurePackages = [
+        "dotnet-runtime-wrapped-6.0.36"
+      ];
     };
     overlays = [
       #flake.inputs.nuenv.overlays.nuenv

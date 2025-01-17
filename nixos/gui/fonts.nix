@@ -3,10 +3,10 @@
 {
   fonts = {
     enableDefaultFonts = true;
-    fontconfig.defaultFonts = {
-      monospace = [ "Ubuntu Mono for Powerline" ];
-      sansSerif = [ "Ubuntu" ];
-    };
+    # fontconfig.defaultFonts = {
+    #   monospace = [ "Ubuntu Mono for Powerline" ];
+    #   sansSerif = [ "Ubuntu" ];
+    # };
     fonts = with pkgs; [
       # NOTE: Some fonts may break colour emojis in Chrome
       # cf. https://github.com/NixOS/nixpkgs/issues/69073#issuecomment-621982371

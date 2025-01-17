@@ -27,7 +27,6 @@
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
   programs.gamescope.enable = true;
-
   # fps games on laptop need this
   services.xserver.libinput.touchpad.disableWhileTyping = false;
   services.xserver.libinput.mouse.disableWhileTyping = false;

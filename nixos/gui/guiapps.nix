@@ -44,11 +44,11 @@
     qt5.qtgraphicaleffects
     stdmanpages
 
-    gnome3.adwaita-icon-theme
+    adwaita-icon-theme
     # video pkgs
     glxinfo
     vlc
-    untrunc
+    #untrunc
     mpv
     obs-studio
     ffmpeg-full
