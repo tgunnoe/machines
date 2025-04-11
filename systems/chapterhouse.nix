@@ -161,16 +161,9 @@
     latitude = 38.0;
     longitude = -80.0;
   };
-
-# services.github-runners = {
-#   runner1 = {
-#     enable = true;
-#     name = "runner1";
-#     tokenFile = "/run/agenix/salusa";
-#     url = "https://github.com/tgunnoe/trustless-sidechain";
-#   };
-# };
-
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.enable = true;
 
   time.timeZone = "America/New_York";
   time.hardwareClockInLocalTime = true;
