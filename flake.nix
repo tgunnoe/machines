@@ -14,16 +14,12 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixpkgs-match.url = "github:srid/nixpkgs-match";
     nix-doom-emacs-unstraightened = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devour-flake.url = "github:srid/devour-flake";
-    devour-flake.flake = false;
     nur.url = "github:nix-community/nur";
 
-    emacs.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = inputs@{ self, ... }:
