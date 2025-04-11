@@ -12,7 +12,7 @@
           #./powershell.nix
           ./kitty.nix
           #./emacs.nix
-          ./zellij.nix
+	#          ./zellij.nix
 
         ];
       };
@@ -24,12 +24,12 @@
           ./gui
           ./zsh.nix
         ];
-        programs.doom-emacs = {
-          enable = true;
-          doomDir = inputs.self + /home/doom.d;
-          experimentalFetchTree = true;
-          extraPackages = epkgs: with epkgs; [
-            vterm
+         programs.doom-emacs = {
+           enable = true;
+           doomDir = "${inputs.self}/home/doom.d";
+           experimentalFetchTree = true;
+           extraPackages = epkgs: with epkgs; [
+             vterm
             #chatgpt-shell
           ];
 

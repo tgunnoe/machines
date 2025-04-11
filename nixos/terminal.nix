@@ -105,8 +105,8 @@
       #yarn
       libusb1
 
-      texlive.combined.scheme-full
-      pandoc
+      #texlive.combined.scheme-full
+      #pandoc
       #orgtoinvoice
       sshfs
       pkg-config

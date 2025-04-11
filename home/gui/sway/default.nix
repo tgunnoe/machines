@@ -59,10 +59,10 @@ in
     wlr-randr
     wofi
 
-    xdg-desktop-portal-wlr
+    #xdg-desktop-portal-wlr
     dmenu-wayland
     qt5.qtwayland
-    volnoti
+    #volnoti
 
   ];
   wayland.windowManager.sway = {
@@ -137,11 +137,11 @@ in
 
         ];
       };
-      fonts = {
-        names = [ "DejaVu Sans Mono" "FontAwesome5Free" "Nerdfonts" ];
-        style = "Bold Semi-Condensed";
-        size = 12.0;
-      };
+      # fonts = {
+      #   names = [ "DejaVu Sans Mono" "FontAwesome5Free" "Nerdfonts" ];
+      #   style = "Bold Semi-Condensed";
+      #   size = 12.0;
+      # };
       gaps = {
         smartBorders = "on";
       };
