@@ -9,7 +9,7 @@
     };
     overlays = [
       #flake.inputs.nuenv.overlays.nuenv
-      (self: super: { devour-flake = self.callPackage flake.inputs.devour-flake { }; })
+      #(self: super: { devour-flake = self.callPackage flake.inputs.devour-flake { }; })
     ];
   };
 

@@ -9,7 +9,7 @@
 
     # Useful for Nix development
     nix-output-monitor
-    devour-flake
+    #devour-flake
     nil
     nixpkgs-fmt
   ];

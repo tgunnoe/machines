@@ -5,7 +5,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
+    nixos-flake.url = "github:srid/nixos-flake/ef4921f6af505ee41ccab57b65b99be9cef63886";
 
     ragenix.url = "github:yaxitech/ragenix";
     ragenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +34,7 @@
       ];
       flake = {
         nixosConfigurations = {
-          sietch-tabr = self.nixos-flake.lib.mkLinuxSystem "aarch64-linux" {
+          sietch-tabr = self.nixos-flake.lib.mkLinuxSystem {
             imports = [
               ./systems/sietch-tabr.nix
               self.nixosModules.default
