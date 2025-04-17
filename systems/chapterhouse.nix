@@ -163,8 +163,14 @@
   };
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.enable = true;
+  services.gnome.gnome-browser-connector.enable = true;
+  services.gnome.sushi.enable = true;
+  services.gnome.core-shell.enable = true;
+  services.gnome.core-utilities.enable = true;
 
+
+  services.xserver.enable = true;
+  environment.systemPackages = [ pkgs.gnome-browser-connector pkgs.gjs ];
   time.timeZone = "America/New_York";
   time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_US.UTF-8";
