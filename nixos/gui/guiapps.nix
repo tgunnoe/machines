@@ -55,6 +55,7 @@
     #simplescreenrecorder
     stremio
 
+    code-cursor
     # X stuff
     # caffeine-ng
     # xorg.xdpyinfo
