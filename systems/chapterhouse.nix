@@ -7,33 +7,25 @@
   ];
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/91d1dfd6-bf33-46ad-8fc7-3ff39ba826ff";
+    { device = "/dev/disk/by-uuid/b03dc47d-31b3-4426-8dec-d888d38923b7";
       fsType = "ext4";
     };
 
-  fileSystems."/boot/efi" =
-    {
-      device = "/dev/disk/by-uuid/2EB0-BB29";
+  boot.initrd.luks.devices."luks-4decceca-df36-4227-9e81-4bb97e7a777d".device = "/dev/disk/by-uuid/4decceca-df36-4227-9e81-4bb97e7a777d";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/48F2-1E37";
       fsType = "vfat";
-    };
-  # fileSystems."/data" =
-  #   {
-  #     device = "/dev/disk/by-uuid/154d7e98-af18-495d-9f00-94f8cbff9271";
-  #     fsType = "ext4";
-  #     options = [ "remount" "rw" "uid=1000" "gid=users" ];
-  #   };
-  fileSystems."/tmp" =
-    {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [ "nosuid" "nodev" "relatime" "size=32G" ];
+      options = [ "fmask=0077" "dmask=0077" ];
     };
 
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/ae389b46-5831-444b-9dfc-29ee1bf7cb71"; }
+    ];
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.enableRedistributableFirmware = true;
   #age.secrets.salusa.file = "${self}/secrets/salusa.age";
   nixpkgs.hostPlatform = "x86_64-linux";
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/04983f36-41ad-4dea-9227-6a3f06fbbb11"; }];
 
   # high-resolution display
   #hardware.video.hidpi.enable = lib.mkDefault true;
@@ -54,7 +46,7 @@
     loader = {
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+        #efiSysMountPoint = "/boot/efi";
       };
       grub = {
         enable = true;
@@ -63,32 +55,13 @@
         efiSupport = true;
         enableCryptodisk = true;
         useOSProber = true;
-        extraEntries = ''
-            menuentry "Windows" {
-              insmod part_gpt
-              insmod fat
-              insmod search_fs_uuid
-              insmod chain
-              search --fs-uuid --set=root 0A783C09783BF255
-              chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
       };
     };
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ "dm-snapshot" ];
-      secrets = {
-        "keyfile0.bin" = "/etc/secrets/initrd/keyfile0.bin";
-      };
       luks.devices = {
-        root = {
-          name = "root";
-          device = "/dev/disk/by-uuid/6e57d03c-999a-47e1-a38c-aca0e55b4013"; # UUID for /dev/nvme01np2
-          preLVM = true;
-          keyFile = "/keyfile0.bin";
-          allowDiscards = true;
-        };
+	"luks-5b9efbe1-6f6a-4587-abb2-3883e109bbfc".device = "/dev/disk/by-uuid/5b9efbe1-6f6a-4587-abb2-3883e109bbfc";
       };
     };
     supportedFilesystems = [ "ntfs" ];
@@ -132,11 +105,11 @@
     #   systemd-resolved=false
     # '';
   };
-  networking.nameservers =
-    [ "1.1.1.1" "1.0.0.1" ];
+  # networking.nameservers =
+  #   [ "1.1.1.1" "1.0.0.1" ];
 
   networking = {
-    hostId = "e53dd769";
+    hostId = "b5a0db89";
     hostName = "chapterhouse";
     firewall.allowedTCPPorts = [ 8000 ];
     enableIPv6 = false;
@@ -175,6 +148,6 @@
   time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_US.UTF-8";
   security.sudo.wheelNeedsPassword = false;
-  system.stateVersion = "20.03";
+  system.stateVersion = "24.11";
 
 }
