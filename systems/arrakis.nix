@@ -59,8 +59,9 @@ rec {
       "elevator=none"
       "mem_sleep_default=deep"
       "nvme.noacpi=1"
-      "zfs.zfs_arc_max=8589934595"
+      "zfs.zfs_arc_max=17179869184"
       "zfs.zfs_arc_meta_limit_percent=50"
+      "zfs.zfs_arc_shrinker_limit=0"
     ];
 
     extraModulePackages = [ ];
