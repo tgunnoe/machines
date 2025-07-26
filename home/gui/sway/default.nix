@@ -323,19 +323,19 @@ in
     '';
   };
 
-  programs.mako = {
-    enable = true;
-    backgroundColor = "#00000099";
-    borderColor = "#0D6678D9";
-    borderSize = 3;
-    progressColor = "source #8BA59B00";
-    textColor = "#ffffff";
-    defaultTimeout = 5000;
-    font = "DejaVu Sans 11";
-    groupBy = "app-name";
-    maxVisible = 3;
-    sort = "-priority";
-  };
+  # programs.mako = {
+  #   enable = true;
+  #   backgroundColor = "#00000099";
+  #   borderColor = "#0D6678D9";
+  #   borderSize = 3;
+  #   progressColor = "source #8BA59B00";
+  #   textColor = "#ffffff";
+  #   defaultTimeout = 5000;
+  #   font = "DejaVu Sans 11";
+  #   groupBy = "app-name";
+  #   maxVisible = 3;
+  #   sort = "-priority";
+  # };
 
   services.gammastep = {
     latitude = 38.0;
