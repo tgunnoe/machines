@@ -38,7 +38,10 @@
   services.xserver.libinput.mouse.tappingDragLock = false;
   services.xserver.libinput.mouse.tapping = false;
 
-
+  services.minetest-server = {
+    enable = true;
+    gameId = "voxelibre";
+  };
   #services.xserver.windowManager.steam = { enable = true; };
 
   # 32-bit support needed for steam
