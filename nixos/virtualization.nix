@@ -23,7 +23,7 @@
   environment.systemPackages = with pkgs; [
     docker-compose
     virt-manager
-    vagrant
+    #vagrant
   ];
   programs.dconf.enable = true;
   #environment.shellAliases.docker = "podman";
