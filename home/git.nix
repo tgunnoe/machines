@@ -3,7 +3,7 @@
   home.packages = [ pkgs.git-lfs ];
 
   programs.git = {
-    package = pkgs.gitAndTools.gitFull;
+    #package = pkgs.gitAndTools.gitFull;
     enable = true;
     userName = flake.config.people.users.${config.home.username}.name;
     userEmail = flake.config.people.users.${config.home.username}.email;

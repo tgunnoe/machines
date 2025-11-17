@@ -5,7 +5,7 @@
       common = {
         home.stateVersion = "22.11";
         imports = [
-          ./terminal.nix
+	./terminal.nix
           ./git.nix
           ./direnv.nix
           #./nushell.nix
@@ -21,17 +21,17 @@
         imports = [
           self.homeModules.common
           inputs.nix-doom-emacs-unstraightened.hmModule
-          ./gui
+          #./gui
           ./zsh.nix
         ];
-         programs.doom-emacs = {
-           enable = true;
-           doomDir = "${inputs.self}/home/doom.d";
-           experimentalFetchTree = true;
-           extraPackages = epkgs: with epkgs; [
-             vterm
-            #chatgpt-shell
-          ];
+        programs.doom-emacs = {
+          enable = true;
+          doomDir = "${inputs.self}/home/doom.d";
+          experimentalFetchTree = true;
+          extraPackages = epkgs: with epkgs; [
+          #vterm
+          #chatgpt-shell
+        ];
 
         };
         services.emacs.enable = true;
@@ -44,7 +44,7 @@
           clipman
           waypipe
           wdisplays
-          wdomirror
+          #wdomirror
           wlr-randr
           xdg-desktop-portal-wlr
           qt5.qtwayland

@@ -6,9 +6,9 @@
   # Apps I use on desktops and laptops
   environment.systemPackages = with pkgs; [
     brave
-    firefox-wayland
+    firefox
     chromium
-    tor-browser-bundle-bin
+    tor-browser
     # onlyoffice-bin
     #obsidian
     nomacs
@@ -26,34 +26,34 @@
     element-desktop
     signal-desktop
     slack
-    tdesktop
+    telegram-desktop
     #gomuks
 
     #_1password
     #_1password-gui
 
     # Torrent / P2P
-    qbittorrent
-    transmission-gtk
+    #qbittorrent
+    transmission_4-gtk
 
     librsvg
 
-    libsForQt5.qtstyleplugins
+    #libsForQt5.qtstyleplugins
     #man-pages
 
-    qt5.qtgraphicaleffects
+    #qt5.qtgraphicaleffects
     stdmanpages
 
     adwaita-icon-theme
     # video pkgs
-    glxinfo
+    mesa-demos
     vlc
     #untrunc
     mpv
     obs-studio
     ffmpeg-full
     #simplescreenrecorder
-    stremio
+    #stremio
 
     code-cursor
     # X stuff

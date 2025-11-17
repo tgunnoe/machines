@@ -2,7 +2,7 @@
 {
   programs.adb.enable = true;
   services.udev.packages = [
-    pkgs.android-udev-rules
+    #pkgs.android-udev-rules
   ];
   services.gvfs.enable = true;
 }

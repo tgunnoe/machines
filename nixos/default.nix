@@ -42,7 +42,7 @@
         self.nixosModules.common
         ./self-ide.nix
         ./ssh-authorize.nix
-        #./current-location.nix
+        ./current-location.nix
         ./android.nix
         ./devices.nix
         ./games.nix
@@ -52,6 +52,7 @@
         ./harden.nix
         ./cryptocurrency.nix
         ./virtualization.nix
+        #./nebula.nix
       ];
     };
   };

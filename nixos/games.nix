@@ -27,6 +27,16 @@
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
   programs.gamescope.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      zlib
+      libGL
+      libGLU
+      openssl
+      stdenv.cc.cc
+    ];
+  };
   services.sunshine = {
     enable = true;
     openFirewall = true;
@@ -38,10 +48,10 @@
   services.xserver.libinput.mouse.tappingDragLock = false;
   services.xserver.libinput.mouse.tapping = false;
 
-  services.minetest-server = {
-    enable = true;
-    gameId = "voxelibre";
-  };
+  # services.minetest-server = {
+  #   enable = true;
+  #   gameId = "voxelibre";
+  # };
   #services.xserver.windowManager.steam = { enable = true; };
 
   # 32-bit support needed for steam
@@ -51,7 +61,7 @@
   hardware.pulseaudio.support32Bit = true;
 
   # better for steam proton games
-  systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  #systemd.extraConfig = "DefaultLimitNOFILE=1048576";
 
   # improve wine performance
   environment.sessionVariables = { WINEDEBUG = "-all"; };

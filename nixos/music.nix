@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    mpc_cli
+    mpc
     mpd
   ];
   services.mpd = {

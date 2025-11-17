@@ -41,7 +41,7 @@
   nixpkgs.overlays = [
     (self: super: {
       libcec = super.libcec.override { inherit (self) libraspberrypi; };
-      fcitx-engines = pkgs.fcitx5;
+      #fcitx-engines = pkgs.fcitx5;
     })
   ];
 

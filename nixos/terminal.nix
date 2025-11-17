@@ -55,7 +55,7 @@
       bzip2
       #devshell.cli
       eza
-      gitAndTools.hub
+      #gitAndTools.hub
       gzip
       lrzip
       p7zip
@@ -65,7 +65,7 @@
       unzip
 
       iproute2
-      protonvpn-cli_2
+      protonvpn-gui
 
       appimage-run
       cntr
