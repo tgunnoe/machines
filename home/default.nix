@@ -16,7 +16,7 @@
 
         ];
       };
-      default = { pkgs, ...}: {
+      default = { pkgs, config, ...}: {
 
         imports = [
           self.homeModules.common
@@ -34,7 +34,12 @@
         ];
 
         };
-        services.emacs.enable = true;
+        services.emacs = {
+          enable = true;
+          #package = config.programs.doom-emacs.finalPackage;
+          client.enable = true;
+          socketActivation.enable = true;
+        };
         programs.git.enable = true;
         home.packages = with pkgs; [
           grim
