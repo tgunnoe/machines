@@ -151,11 +151,11 @@
   security.sudo.wheelNeedsPassword = false;
   
   # Configure chapterhouse as Nebula lighthouse
-  services.nebula.networks.home = {
-    isLighthouse = lib.mkForce true;
-    # Lighthouse doesn't need to use relays (it is the relay)
-    relays = lib.mkForce [];
-  };
+  # services.nebula.networks.home = {
+  #   isLighthouse = lib.mkForce true;
+  #   # Lighthouse doesn't need to use relays (it is the relay)
+  #   relays = lib.mkForce [];
+  # };
   
   system.stateVersion = "24.11";
 
