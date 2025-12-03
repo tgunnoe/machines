@@ -29,8 +29,6 @@
   #age.secrets.salusa.file = "${self}/secrets/salusa.age";
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  # high-resolution display
-  #hardware.video.hidpi.enable = lib.mkDefault true;
   hardware.bluetooth.enable = true;
   services.fwupd.enable = true;
   boot = {
@@ -42,7 +40,7 @@
       options kvm ignore_msrs=1
     '';
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "kvm-amd" "k10temp" "amdgpu" ];
+    kernelModules = [ "k10temp" "kvm-amd" ];
     kernelPatches = [ ];
     loader = {
       efi = {
@@ -135,16 +133,21 @@
     latitude = 38.0;
     longitude = -80.0;
   };
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.gnome.gnome-browser-connector.enable = true;
-  services.gnome.sushi.enable = true;
-  services.gnome.core-shell.enable = true;
-  services.gnome.core-utilities.enable = true;
-
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.gnome.gnome-browser-connector.enable = true;
+  # services.gnome.sushi.enable = true;
+  # services.gnome.core-shell.enable = true;
+  # services.gnome.core-utilities.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
   services.xserver.enable = true;
-  environment.systemPackages = [ pkgs.gnome-browser-connector pkgs.gjs ];
+  environment.systemPackages = [
+    pkgs.gjs
+    pkgs.kdePackages.krohnkite
+  ];
   time.timeZone = "America/New_York";
   time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_US.UTF-8";
