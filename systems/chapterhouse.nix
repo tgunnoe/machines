@@ -133,8 +133,8 @@
     latitude = 38.0;
     longitude = -80.0;
   };
-  # services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
   # services.gnome.gnome-browser-connector.enable = true;
   # services.gnome.sushi.enable = true;
   # services.gnome.core-shell.enable = true;

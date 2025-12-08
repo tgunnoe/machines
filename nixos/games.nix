@@ -25,6 +25,9 @@
   ];
 
   programs.steam.enable = true;
+  # programs.steam.extraCompatPackages = with pkgs.steamPackages; [
+  #   proton-ge-custom."GE-Proton10-1"
+  #   ]; 
   programs.steam.gamescopeSession.enable = true;
   programs.gamescope.enable = true;
   programs.nix-ld = {

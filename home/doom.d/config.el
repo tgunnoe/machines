@@ -123,6 +123,12 @@
 
 (map! "C-c C-o" #'browse-url-at-point)
 
+;; Text size adjustment
+(map! "C-+" #'text-scale-increase
+      "C-=" #'text-scale-increase
+      "C--" #'text-scale-decrease
+      "C-0" #'text-scale-adjust)  ; Reset to default size
+
 ;; Swap, I'm used to:
 (map! "C-x k" #'doom/kill-this-buffer-in-all-windows
       "C-x K" #'kill-buffer)

@@ -21,6 +21,10 @@
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+    
     nur.url = "github:nix-community/nur";
 
   };
