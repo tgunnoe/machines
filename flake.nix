@@ -54,6 +54,14 @@
               self.nixosModules.default
             ];
           };
+          caladan = self.nixos-flake.lib.mkLinuxSystem {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            imports = [
+              ./systems/caladan.nix
+              self.nixosModules.default
+            ];
+          };
+
           arrakis = self.nixos-flake.lib.mkLinuxSystem {
             nixpkgs.hostPlatform = "x86_64-linux";
             imports = [
