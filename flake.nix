@@ -27,6 +27,11 @@
     
     nur.url = "github:nix-community/nur";
 
+    xfce-winxp-tc = {
+      url = "github:mrtipson/xfce-winxp-tc/cleanup";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs@{ self, ... }:
