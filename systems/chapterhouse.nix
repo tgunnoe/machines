@@ -110,7 +110,7 @@
   networking = {
     hostId = "b5a0db89";
     hostName = "chapterhouse";
-    firewall.allowedTCPPorts = [ 8000 ];
+    firewall.allowedTCPPorts = [ 8000 5029 ];
     enableIPv6 = false;
     useDHCP = false;
     interfaces = {
@@ -133,6 +133,7 @@
     latitude = 38.0;
     longitude = -80.0;
   };
+  
   #services.xserver.desktopManager.gnome.enable = true;
   #services.xserver.displayManager.gdm.enable = true;
   # services.gnome.gnome-browser-connector.enable = true;

@@ -4,6 +4,8 @@
     #retroarchBare
     #pcsx2
     cabextract
+    gamemode
+    mangohud
     protontricks
     darkplaces
     #devilutionx
@@ -24,12 +26,19 @@
     winetricks
   ];
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    protontricks.enable = true;
+    #gamescope = true;
+  };
+  
   # programs.steam.extraCompatPackages = with pkgs.steamPackages; [
   #   proton-ge-custom."GE-Proton10-1"
   #   ]; 
   programs.steam.gamescopeSession.enable = true;
-  programs.gamescope.enable = true;
+  #programs.gamescope.enable = true;
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
