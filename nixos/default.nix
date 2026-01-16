@@ -36,7 +36,12 @@
         };
       };
       default.imports = [
-        self.nixosModules.home-manager
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs; flake = self; people = config.people; };
+        }
         #self.nur.nixosModules.nur
         self.nixosModules.my-home
         self.nixosModules.common

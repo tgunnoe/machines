@@ -1,4 +1,4 @@
-{ flake, lib, pkgs, modulesPath, config, ... }:
+{ flake, people, lib, pkgs, modulesPath, config, ... }:
 
 rec {
   imports = [
@@ -100,7 +100,7 @@ rec {
     keyMap = lib.mkForce "dvorak";
     earlySetup = true;
   };
-  home-manager.users.${flake.config.people.myself}.wayland.windowManager.sway.config = {
+  home-manager.users.${people.myself}.wayland.windowManager.sway.config = {
     gaps = {
       inner = 20;
       outer = 5;
@@ -161,7 +161,7 @@ rec {
     cpuFreqGovernor = lib.mkDefault "powersave";
   };
   #age.secrets.wifi.file = ../secrets/wifi/galaxian5g.age;
-  services.logind.extraConfig = "HandlePowerKey=ignore";
+  services.logind.settings.Login.HandlePowerKey = "ignore";
   services.thermald.enable = true;
   services.hdapsd.enable = true;
   services.fstrim.enable = true;

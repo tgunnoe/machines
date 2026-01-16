@@ -1,5 +1,7 @@
-{ pkgs, flake, ... }:
+{ pkgs, flake, lib, ... }:
 {
+  nixpkgs.hostPlatform = "aarch64-linux";
+
   imports = [
     "${flake.inputs.hardware}/raspberry-pi/4"
   ];
@@ -23,9 +25,8 @@
         # Some gui programs need this
         "cma=128M"
     ];
-    loader.raspberryPi.firmwareConfig = ''
-      dtparam=audio=on
-    '';
+    # Note: raspberryPi boot loader removed in nixpkgs, see:
+    # https://github.com/NixOS/nixpkgs/pull/241534
   };
   networking = {
     hostName = "sietch-tabr";
@@ -87,14 +88,15 @@
     keyMap = "dvorak";
     earlySetup = true;
   };
-  sound.enable = true;
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.enableRedistributableFirmware = true;
 
-  hardware.pulseaudio.enable = true;
+  # Use pulseaudio instead of pipewire for this device
+  services.pipewire.enable = lib.mkForce false;
+  services.pulseaudio.enable = lib.mkForce true;
   # home-manager.users.tgunnoe.wayland.windowManager.sway.config = {
   #   gaps = {
   #     inner = 20;

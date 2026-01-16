@@ -1,4 +1,4 @@
-{ pkgs, flake, modulesPath, lib, config, ... }:
+{ pkgs, flake, people, modulesPath, lib, config, ... }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -107,7 +107,7 @@
   ];
 
   # Home Manager configuration for xfce-winxp-tc
-  home-manager.users.${flake.config.people.myself} = {
+  home-manager.users.${people.myself} = {
     imports = [
       flake.inputs.xfce-winxp-tc.homeManagerModules.default
     ];

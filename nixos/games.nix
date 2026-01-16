@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  isX86 = config.nixpkgs.hostPlatform.system == "x86_64-linux";
+in {
 
   environment.systemPackages = with pkgs; [
     #retroarchBare
@@ -26,18 +29,14 @@
     winetricks
   ];
 
-  programs.steam = {
+  programs.steam = lib.mkIf isX86 {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     protontricks.enable = true;
     #gamescope = true;
+    gamescopeSession.enable = true;
   };
-  
-  # programs.steam.extraCompatPackages = with pkgs.steamPackages; [
-  #   proton-ge-custom."GE-Proton10-1"
-  #   ]; 
-  programs.steam.gamescopeSession.enable = true;
   #programs.gamescope.enable = true;
   programs.nix-ld = {
     enable = true;
@@ -70,7 +69,7 @@
   #hardware.opengl.driSupport = true;
   #hardware.opengl.driSupport32Bit = true;
 
-  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.support32Bit = lib.mkIf isX86 true;
 
   # better for steam proton games
   #systemd.extraConfig = "DefaultLimitNOFILE=1048576";

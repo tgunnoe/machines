@@ -1,10 +1,9 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, people, ... }:
 
 {
   # Let me login
   users.users =
     let
-      people = flake.config.people;
       myKeys = people.users.${people.myself}.sshKeys;
       password = people.users.${people.myself}.hashedPassword;
     in

@@ -3,9 +3,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.url = "github:lnl7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake/ef4921f6af505ee41ccab57b65b99be9cef63886";
 
     ragenix.url = "github:yaxitech/ragenix";
     ragenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,41 +36,44 @@
   };
 
   outputs = inputs@{ self, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "aarch64-linux" "x86_64-linux" ];
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ config, ... }: {
+      systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
       imports = [
-        inputs.nixos-flake.flakeModule
         ./users
         ./home
         ./nixos
+        ./darwin
         ./shells
       ];
       flake = {
         nixosConfigurations = {
-          sietch-tabr = self.nixos-flake.lib.mkLinuxSystem {
-            imports = [
+          sietch-tabr = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            modules = [
               ./systems/sietch-tabr.nix
               self.nixosModules.default
             ];
           };
-          chapterhouse = self.nixos-flake.lib.mkLinuxSystem {
-            nixpkgs.hostPlatform = "x86_64-linux";
-            imports = [
+          chapterhouse = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            modules = [
+              { nixpkgs.hostPlatform = "x86_64-linux"; }
               ./systems/chapterhouse.nix
               self.nixosModules.default
             ];
           };
-          caladan = self.nixos-flake.lib.mkLinuxSystem {
-            nixpkgs.hostPlatform = "x86_64-linux";
-            imports = [
+          caladan = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            modules = [
+              { nixpkgs.hostPlatform = "x86_64-linux"; }
               ./systems/caladan.nix
               self.nixosModules.default
             ];
           };
-
-          arrakis = self.nixos-flake.lib.mkLinuxSystem {
-            nixpkgs.hostPlatform = "x86_64-linux";
-            imports = [
+          arrakis = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            modules = [
+              { nixpkgs.hostPlatform = "x86_64-linux"; }
               ./systems/arrakis.nix
               self.nixosModules.default
               inputs.hardware.nixosModules.framework-11th-gen-intel
@@ -77,6 +81,14 @@
             ];
           };
         };
+        darwinConfigurations = {
+          geidi-prime = inputs.nix-darwin.lib.darwinSystem {
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            modules = [
+              self.darwinModules.default
+            ];
+          };
+        };
       };
-    };
+    });
 }

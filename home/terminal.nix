@@ -6,6 +6,7 @@
     # Unixy tools
     ripgrep
     fd
+    eza
 
     # Useful for Nix development
     nix-output-monitor
