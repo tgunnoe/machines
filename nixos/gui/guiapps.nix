@@ -1,67 +1,51 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  isX86 = config.nixpkgs.hostPlatform.system == "x86_64-linux";
+in {
   imports = [
     #./vscode.nix
   ];
 
   # Apps I use on desktops and laptops
   environment.systemPackages = with pkgs; [
-    brave
+    # Browsers (cross-platform)
     firefox
     chromium
-    tor-browser
-    # onlyoffice-bin
-    #obsidian
+
+    # Image viewers
     nomacs
-    #nyxt
     pcmanfm
 
-    # Productivity
+    # Productivity (cross-platform)
     libreoffice
     gimp
     inkscape
     mupdf
 
-    # IM
-    discord
+    # IM (cross-platform)
     element-desktop
-    signal-desktop
-    slack
     telegram-desktop
-    #gomuks
-
-    #_1password
-    #_1password-gui
 
     # Torrent / P2P
-    #qbittorrent
     transmission_4-gtk
 
     librsvg
-
-    #libsForQt5.qtstyleplugins
-    #man-pages
-
-    #qt5.qtgraphicaleffects
     stdmanpages
-
     adwaita-icon-theme
-    # video pkgs
+
+    # video pkgs (cross-platform)
     mesa-demos
     vlc
-    #untrunc
     mpv
-    obs-studio
     ffmpeg-full
-    #simplescreenrecorder
-    #stremio
-
+  ] ++ lib.optionals isX86 [
+    # x86_64 only packages
+    brave
+    tor-browser
+    discord
+    signal-desktop
+    slack
+    obs-studio
     code-cursor
-    # X stuff
-    # caffeine-ng
-    # xorg.xdpyinfo
-    # xorg.xrandr
-    # xclip
-    # xsel
-    # arandr
   ];
 }

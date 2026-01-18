@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  isX86 = config.nixpkgs.hostPlatform.system == "x86_64-linux";
+in {
   virtualisation = {
     libvirtd = {
       enable = true;
@@ -12,24 +15,17 @@
     };
     podman.enable = true;
     containers.enable = true;
-    waydroid.enable = true;
-    #docker.enable = true;
-    #virtualbox.host.enable = true;
-    #virtualbox.host.enableExtensionPack = true;
-
+    # Waydroid only works well on x86_64 currently
+    waydroid.enable = lib.mkIf isX86 true;
   };
-  networking.firewall.trustedInterfaces = [ "waydroid0" ];
+
+  networking.firewall.trustedInterfaces = lib.mkIf isX86 [ "waydroid0" ];
 
   environment.systemPackages = with pkgs; [
     docker-compose
     virt-manager
     distrobox
-    #vagrant
   ];
-  programs.dconf.enable = true;
-  #environment.shellAliases.docker = "podman";
 
-  # environment.sessionVariables = {
-  #   VAGRANT_DEFAULT_PROVIDER = "libvirt";
-  # };
+  programs.dconf.enable = true;
 }

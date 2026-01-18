@@ -26,17 +26,94 @@
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
     
-    nur.url = "github:nix-community/nur";
+    #nur.url = "github:nix-community/nur";
 
     xfce-winxp-tc = {
       url = "github:mrtipson/xfce-winxp-tc/cleanup";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Raspberry Pi support
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
+
+    # Deployment tool
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs@{ self, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ config, ... }: {
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ config, ... }:
+    let
+      # Default deployment settings - can be overridden per machine
+      mkDeployment = name: {
+        targetHost = name;
+        targetUser = "tgunnoe";
+        buildOnTarget = true;
+      };
+
+      # Define machines once, use in both nixosConfigurations and colmena
+      machines = {
+        sietch-tabr = {
+          system = "aarch64-linux";
+          modules = [
+            ./systems/sietch-tabr.nix
+            self.nixosModules.default
+          ];
+        };
+        chapterhouse = {
+          system = "x86_64-linux";
+          modules = [
+            ./systems/chapterhouse.nix
+            self.nixosModules.default
+          ];
+        };
+        caladan = {
+          system = "x86_64-linux";
+          modules = [
+            ./systems/caladan.nix
+            self.nixosModules.default
+          ];
+        };
+        arrakis = {
+          system = "x86_64-linux";
+          modules = [
+            ./systems/arrakis.nix
+            self.nixosModules.default
+            inputs.hardware.nixosModules.framework-11th-gen-intel
+            inputs.ragenix.nixosModules.age
+          ];
+        };
+        jacurutu = {
+          system = "aarch64-linux";
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+            self.nixosModules.default
+            ./systems/jacurutu.nix
+          ];
+          # Override: cross-compile for Pi instead of building on target
+          deployment.buildOnTarget = false;
+        };
+      };
+
+      # Helper to create nixosSystem from machine definition
+      mkNixosSystem = name: machine: inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; flake = self; people = config.people; };
+        modules = [
+          { nixpkgs.hostPlatform = machine.system; }
+        ] ++ machine.modules;
+      };
+
+      # Helper to create colmena host from machine definition
+      mkColmenaHost = name: machine: { ... }: {
+        deployment = (mkDeployment name) // (machine.deployment or {});
+        imports = machine.modules;
+        nixpkgs.hostPlatform = machine.system;
+      };
+    in {
       systems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" ];
       imports = [
         ./users
@@ -46,41 +123,8 @@
         ./shells
       ];
       flake = {
-        nixosConfigurations = {
-          sietch-tabr = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
-            modules = [
-              ./systems/sietch-tabr.nix
-              self.nixosModules.default
-            ];
-          };
-          chapterhouse = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
-            modules = [
-              { nixpkgs.hostPlatform = "x86_64-linux"; }
-              ./systems/chapterhouse.nix
-              self.nixosModules.default
-            ];
-          };
-          caladan = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
-            modules = [
-              { nixpkgs.hostPlatform = "x86_64-linux"; }
-              ./systems/caladan.nix
-              self.nixosModules.default
-            ];
-          };
-          arrakis = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
-            modules = [
-              { nixpkgs.hostPlatform = "x86_64-linux"; }
-              ./systems/arrakis.nix
-              self.nixosModules.default
-              inputs.hardware.nixosModules.framework-11th-gen-intel
-              inputs.ragenix.nixosModules.age
-            ];
-          };
-        };
+        nixosConfigurations = builtins.mapAttrs mkNixosSystem machines;
+
         darwinConfigurations = {
           geidi-prime = inputs.nix-darwin.lib.darwinSystem {
             specialArgs = { inherit inputs; flake = self; people = config.people; };
@@ -89,6 +133,15 @@
             ];
           };
         };
+
+        # Colmena deployment configuration
+        colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
+        colmena = {
+          meta = {
+            nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+            specialArgs = { inherit inputs; flake = self; people = config.people; };
+          };
+        } // builtins.mapAttrs mkColmenaHost machines;
       };
     });
 }

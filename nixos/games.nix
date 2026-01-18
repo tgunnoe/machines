@@ -1,44 +1,68 @@
 { pkgs, lib, config, ... }:
 let
   isX86 = config.nixpkgs.hostPlatform.system == "x86_64-linux";
+  isAarch64 = config.nixpkgs.hostPlatform.system == "aarch64-linux";
 in {
 
+  # Cross-platform games (work on both x86_64 and aarch64)
   environment.systemPackages = with pkgs; [
-    #retroarchBare
-    #pcsx2
+    # Classic game engines/source ports
+    gzdoom
+    openal
+    devilutionx
+    fheroes2
+    openxcom
+    ecwolf
+    scummvm
+    dosbox-x
+
+    # Strategy games
+    openra
+    # wargus - currently broken (stratagus cmake issue)
+    zeroad
+
+    # Open source games
+    superTuxKart
+    superTux
+    luanti  # formerly minetest
+
+    # Emulators
+    libretro.dosbox-pure
+
+    # Tools
+    innoextract
+  ] ++ lib.optionals isX86 [
+    # x86_64 only packages
     cabextract
     gamemode
     mangohud
     protontricks
     darkplaces
-    #devilutionx
-    #factorio
-    #openra
-    openal
-    gzdoom
     steam-tui
     steamcmd
-    #lzwolf
-    #faforever
     steam-run
-    #steamcompmgr
-    #spring
-    #springLobby
     lutris
     wine
     winetricks
+    theforceengine
+    commandergenius
+    vcmi
+  ] ++ lib.optionals isAarch64 [
+    # aarch64 specific packages (if any)
+    easyrpg-player
   ];
 
+  # Steam only available on x86_64
   programs.steam = lib.mkIf isX86 {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     protontricks.enable = true;
-    #gamescope = true;
     gamescopeSession.enable = true;
   };
-  #programs.gamescope.enable = true;
-  programs.nix-ld = {
+
+  # nix-ld for running unpatched binaries
+  programs.nix-ld = lib.mkIf isX86 {
     enable = true;
     libraries = with pkgs; [
       zlib
@@ -48,32 +72,32 @@ in {
       stdenv.cc.cc
     ];
   };
-  services.sunshine = {
+
+  # Sunshine game streaming (x86 only for now)
+  services.sunshine = lib.mkIf isX86 {
     enable = true;
     openFirewall = true;
   };
+
+  # Kodi media center / gaming
+  services.xserver.desktopManager.kodi = {
+    enable = true;
+    package = pkgs.kodi-gbm;
+  };
+
   # fps games on laptop need this
-  services.xserver.libinput.touchpad.disableWhileTyping = false;
-  services.xserver.libinput.mouse.disableWhileTyping = false;
-  services.xserver.libinput.touchpad.tappingDragLock = false;
-  services.xserver.libinput.mouse.tappingDragLock = false;
-  services.xserver.libinput.mouse.tapping = false;
+  services.libinput.touchpad.disableWhileTyping = false;
+  services.libinput.mouse.disableWhileTyping = false;
+  services.libinput.touchpad.tappingDragLock = false;
+  services.libinput.mouse.tappingDragLock = false;
+  services.libinput.mouse.tapping = false;
 
-  # services.minetest-server = {
-  #   enable = true;
-  #   gameId = "voxelibre";
-  # };
-  #services.xserver.windowManager.steam = { enable = true; };
+  # Steam hardware support
+  hardware.steam-hardware.enable = lib.mkIf isX86 true;
 
-  # 32-bit support needed for steam
-  #hardware.opengl.driSupport = true;
-  #hardware.opengl.driSupport32Bit = true;
-
-  hardware.pulseaudio.support32Bit = lib.mkIf isX86 true;
-
-  # better for steam proton games
-  #systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  # 32-bit audio support for Steam
+  services.pulseaudio.support32Bit = lib.mkIf isX86 true;
 
   # improve wine performance
-  environment.sessionVariables = { WINEDEBUG = "-all"; };
+  environment.sessionVariables = lib.mkIf isX86 { WINEDEBUG = "-all"; };
 }

@@ -7,6 +7,11 @@
     flake.inputs.sops-nix.nixosModules.sops
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-6.0.428"
+    "dotnet-runtime-6.0.36"
+  ];
+
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/b5718ae2-4353-4405-a8b6-c8c256baf00d";
@@ -127,7 +132,10 @@
 
     # Configure the Windows XP theme
     win-tc = {
-      theme = null;  # Uses default theme, change to specific theme name if desired
+      theme = "Windows XP style";  # Blue theme
+      cursor = "Windows XP Standard";
+      icons = "luna";
+      SKU = "xpclient-pro";
     };
 
     # X11 configuration files for WinTC session

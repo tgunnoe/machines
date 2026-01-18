@@ -15,6 +15,8 @@
       my-home = {
         users.users.${config.people.myself} = {
           isNormalUser = true;
+          hashedPassword = config.people.users.${config.people.myself}.hashedPassword;
+          openssh.authorizedKeys.keys = config.people.users.${config.people.myself}.sshKeys;
           extraGroups = [
             "adbusers"
             "wheel"
@@ -51,6 +53,7 @@
         ./android.nix
         ./devices.nix
         ./games.nix
+        ./education.nix
         ./music.nix
         ./audio.nix
         ./misc.nix

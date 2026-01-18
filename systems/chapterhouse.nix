@@ -111,6 +111,7 @@
     hostId = "b5a0db89";
     hostName = "chapterhouse";
     firewall.allowedTCPPorts = [ 8000 5029 ];
+    firewall.allowedUDPPorts = [ 8000 5029 ];
     enableIPv6 = false;
     useDHCP = false;
     interfaces = {
