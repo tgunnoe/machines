@@ -1,6 +1,6 @@
-{ people, config, pkgs, lib, ... }: {
+{ flake, config, pkgs, lib, ... }: {
 
-  users.users.${people.myself}.shell = pkgs.zsh;
+  users.users.${flake.people.myself}.shell = pkgs.zsh;
   programs.zsh.enable = true;
   documentation.dev.enable = true;
   programs.bash = {

@@ -1,4 +1,4 @@
-{ flake, people, pkgs, lib, ... }:
+{ flake, pkgs, lib, ... }:
 
 {
   nixpkgs = {
@@ -23,7 +23,7 @@
       experimental-features = "nix-command flakes fetch-closure";
       # Nullify the registry for purity.
       flake-registry = builtins.toFile "empty-flake-registry.json" ''{"flakes":[],"version":2}'';
-      netrc-file = /home/${people.myself}/.netrc;
+      netrc-file = /home/${flake.people.myself}/.netrc;
       system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       sandbox = true;
       trusted-users = [ "@wheel" "tgunnoe" ];

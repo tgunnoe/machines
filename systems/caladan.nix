@@ -1,4 +1,4 @@
-{ pkgs, flake, people, modulesPath, lib, config, ... }:
+{ pkgs, flake, modulesPath, lib, config, ... }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -7,10 +7,6 @@
     flake.inputs.sops-nix.nixosModules.sops
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-sdk-6.0.428"
-    "dotnet-runtime-6.0.36"
-  ];
 
 
   fileSystems."/" =
@@ -97,13 +93,19 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the XFCE Desktop Environment.
+  # Enable the XFCE Desktop Environment (WinTC depends on XFCE components)
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.desktopManager.xfce.enableWaylandSession = true;
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "tgunnoe";
+  # Register WinTC session with the display manager
+  services.displayManager.sessionPackages = [
+    flake.inputs.xfce-winxp-tc.packages.x86_64-linux.default
+  ];
+
+  # Auto-login to WinTC session
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "tgunnoe";
+  services.displayManager.defaultSession = "wintc";
 
   environment.systemPackages = [
     pkgs.gjs
@@ -112,7 +114,7 @@
   ];
 
   # Home Manager configuration for xfce-winxp-tc
-  home-manager.users.${people.myself} = {
+  home-manager.users.${flake.people.myself} = {
     imports = [
       flake.inputs.xfce-winxp-tc.homeManagerModules.default
     ];

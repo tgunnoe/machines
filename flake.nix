@@ -76,6 +76,7 @@
             ./systems/caladan.nix
             self.nixosModules.default
           ];
+          deployment.buildOnTarget = false;
         };
         arrakis = {
           system = "x86_64-linux";
@@ -101,7 +102,7 @@
 
       # Helper to create nixosSystem from machine definition
       mkNixosSystem = name: machine: inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; flake = self; people = config.people; };
+        specialArgs = { inherit inputs; flake = self; };
         modules = [
           { nixpkgs.hostPlatform = machine.system; }
         ] ++ machine.modules;
@@ -123,11 +124,14 @@
         ./shells
       ];
       flake = {
+        # Expose people config as a flake output so modules can access it via flake.people
+        people = config.people;
+
         nixosConfigurations = builtins.mapAttrs mkNixosSystem machines;
 
         darwinConfigurations = {
           geidi-prime = inputs.nix-darwin.lib.darwinSystem {
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            specialArgs = { inherit inputs; flake = self; };
             modules = [
               self.darwinModules.default
             ];
@@ -139,7 +143,7 @@
         colmena = {
           meta = {
             nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-            specialArgs = { inherit inputs; flake = self; people = config.people; };
+            specialArgs = { inherit inputs; flake = self; };
           };
         } // builtins.mapAttrs mkColmenaHost machines;
       };

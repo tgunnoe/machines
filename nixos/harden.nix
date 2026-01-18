@@ -1,4 +1,4 @@
-{ people, ... }: {
+{ flake, ... }: {
 
   # Firewall
   networking.firewall.enable = true;
@@ -6,7 +6,7 @@
   security.sudo.execWheelOnly = true;
 
   security.sudo.wheelNeedsPassword = false;
-  users.users.${people.myself} = {
+  users.users.${flake.people.myself} = {
     extraGroups = [ "wheel" ];
   };
   security.auditd.enable = true;
@@ -32,7 +32,7 @@
     # };
   };
   nix.settings.allowed-users = [ "root" "@users" ];
-  nix.settings.trusted-users = [ "root" people.myself ];
+  nix.settings.trusted-users = [ "root" flake.people.myself ];
 
   users.mutableUsers = false;
 

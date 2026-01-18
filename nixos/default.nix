@@ -42,7 +42,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs; flake = self; people = config.people; };
+          home-manager.extraSpecialArgs = { inherit inputs; flake = self; };
         }
         #self.nur.nixosModules.nur
         self.nixosModules.my-home

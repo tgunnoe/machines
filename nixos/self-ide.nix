@@ -1,8 +1,8 @@
-{ pkgs, people, ... }: {
+{ pkgs, flake, ... }: {
   # For no-prompt Ctrl+Shift+B in VSCode
   security.sudo.extraRules = [
     {
-      users = [ people.myself ];
+      users = [ flake.people.myself ];
       commands = [
         {
           command = "/run/current-system/sw/bin/nixos-rebuild";

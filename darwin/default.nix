@@ -22,7 +22,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = { inherit inputs; flake = self; people = config.people; };
+            extraSpecialArgs = { inherit inputs; flake = self; };
             users.${config.people.myself} = {
               imports = [ self.homeModules.darwin ];
             };

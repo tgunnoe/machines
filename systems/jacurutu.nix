@@ -1,5 +1,5 @@
 # Raspberry Pi 5 configuration
-{ pkgs, lib, flake, people, ... }:
+{ pkgs, lib, flake, ... }:
 {
   time.timeZone = "America/New_York";
 
@@ -97,13 +97,23 @@
 
   security.rtkit.enable = true;
 
-  # Desktop environment - XFCE with Windows XP theme
+  # Desktop environment - XFCE with Windows XP theme (WinTC depends on XFCE components)
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "tgunnoe";
+  # Register WinTC session with the display manager
+  services.displayManager.sessionPackages = [
+    flake.inputs.xfce-winxp-tc.packages.aarch64-linux.default
+  ];
+
+  # Auto-login to WinTC session
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "tgunnoe";
+  services.displayManager.defaultSession = "wintc";
+
+  # Allow passwordless sudo for wheel group (needed for colmena deployments)
+  security.sudo.wheelNeedsPassword = false;
 
   # Extra packages specific to this Pi
   environment.systemPackages = with pkgs; [
@@ -111,10 +121,11 @@
     wget
     vim
     gjs
+    flake.inputs.xfce-winxp-tc.packages.aarch64-linux.default
   ];
 
   # Home Manager configuration for xfce-winxp-tc
-  home-manager.users.${people.myself} = {
+  home-manager.users.${flake.people.myself} = {
     imports = [
       flake.inputs.xfce-winxp-tc.homeManagerModules.default
     ];

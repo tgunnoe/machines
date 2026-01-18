@@ -1,15 +1,15 @@
-{ config, pkgs, lib, people, ... }:
+{ config, pkgs, lib, flake, ... }:
 
 {
   # Let me login
   users.users =
     let
-      myKeys = people.users.${people.myself}.sshKeys;
-      password = people.users.${people.myself}.hashedPassword;
+      myKeys = flake.people.users.${flake.people.myself}.sshKeys;
+      password = flake.people.users.${flake.people.myself}.hashedPassword;
     in
     {
       root.openssh.authorizedKeys.keys = myKeys;
-      ${people.myself} = {
+      ${flake.people.myself} = {
         hashedPassword = password;
         openssh.authorizedKeys.keys = myKeys;
       };

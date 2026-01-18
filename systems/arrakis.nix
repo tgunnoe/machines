@@ -1,4 +1,4 @@
-{ flake, people, lib, pkgs, modulesPath, config, ... }:
+{ flake, lib, pkgs, modulesPath, config, ... }:
 
 rec {
   imports = [
@@ -100,7 +100,7 @@ rec {
     keyMap = lib.mkForce "dvorak";
     earlySetup = true;
   };
-  home-manager.users.${people.myself}.wayland.windowManager.sway.config = {
+  home-manager.users.${flake.people.myself}.wayland.windowManager.sway.config = {
     gaps = {
       inner = 20;
       outer = 5;

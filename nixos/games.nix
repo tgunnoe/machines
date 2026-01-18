@@ -17,7 +17,7 @@ in {
     dosbox-x
 
     # Strategy games
-    openra
+    # openra - requires insecure dotnet-runtime-6.0.36
     # wargus - currently broken (stratagus cmake issue)
     zeroad
 
