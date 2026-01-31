@@ -43,6 +43,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; flake = self; };
+          home-manager.backupFileExtension = "backup";
         }
         #self.nur.nixosModules.nur
         self.nixosModules.my-home

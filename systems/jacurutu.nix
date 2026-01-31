@@ -97,20 +97,18 @@
 
   security.rtkit.enable = true;
 
-  # Desktop environment - XFCE with Windows XP theme (WinTC depends on XFCE components)
-  services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  # Wayland desktop - Labwc (lightweight Openbox-like compositor)
+  programs.labwc.enable = true;
 
-  # Register WinTC session with the display manager
-  services.displayManager.sessionPackages = [
-    flake.inputs.xfce-winxp-tc.packages.aarch64-linux.default
-  ];
+  # greetd with tuigreet for Wayland - override the shared Hyprland default
+  services.greetd.settings.default_session.command = lib.mkForce "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd labwc";
 
-  # Auto-login to WinTC session
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "tgunnoe";
-  services.displayManager.defaultSession = "wintc";
+  # XDG portal for Wayland
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   # Allow passwordless sudo for wheel group (needed for colmena deployments)
   security.sudo.wheelNeedsPassword = false;
@@ -120,65 +118,20 @@
     git
     wget
     vim
-    gjs
-    flake.inputs.xfce-winxp-tc.packages.aarch64-linux.default
+    # Labwc desktop environment
+    labwc
+    foot           # Lightweight Wayland terminal
+    wofi           # App launcher
+    nwg-panel      # Taskbar with start menu
+    nwg-drawer     # Full-screen app launcher (optional)
+    nwg-look       # GTK theme switcher
+    grim
+    slurp
+    wl-clipboard
+    mako           # Notifications
+    pcmanfm        # File manager
+    swaybg         # Wallpaper
   ];
-
-  # Home Manager configuration for xfce-winxp-tc
-  home-manager.users.${flake.people.myself} = {
-    imports = [
-      flake.inputs.xfce-winxp-tc.homeManagerModules.default
-    ];
-
-    home.packages = with pkgs; [
-      xcape  # For Super key mapping in xinitrc
-      xfce.xfce4-power-manager
-      xfce.xfce4-terminal
-      xfce.xfce4-taskmanager
-      xfce.mousepad
-      xfce.ristretto
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
-      xfce.thunar-volman
-    ];
-
-    # Configure the Windows XP theme
-    win-tc = {
-      theme = "Windows XP style";  # Blue theme
-      cursor = "Windows XP Standard";
-      icons = "luna";
-      SKU = "xpclient-pro";
-    };
-
-    # X11 configuration files for WinTC session
-    home.file = {
-      "x.conf".text = ''
-        Section "Files"
-          ModulePath "${pkgs.xorg.xf86inputlibinput}/lib/xorg/modules"
-          ModulePath "${pkgs.xorg.xorgserver}/lib/xorg/modules"
-        EndSection
-
-        Section "InputClass"
-          Identifier "libinput all devices"
-          MatchDevicePath "/dev/input/event*"
-          Driver "libinput"
-        EndSection
-      '';
-      "session.start".text = ''startx -- -config x.conf vt$XDG_VTNR'';
-      ".xinitrc".text = ''
-        export DESKTOP_SESSION="WINTC"
-        export XDG_CURRENT_DESKTOP="WINTC"
-        export WINDEBUG="1"
-
-        xfsettingsd --disable-wm-check --replace --daemon
-        xcape -e 'Super_L=Alt_L|F1'
-
-        dbus-run-session -- smss
-        exit
-      '';
-    };
-  };
 
   system.stateVersion = "24.11";
 }

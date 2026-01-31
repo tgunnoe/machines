@@ -78,6 +78,7 @@
     hostId = "0fc1e2c1";
     hostName = "caladan";
     firewall.allowedTCPPorts = [ 8000 ];
+    firewall.allowedUDPPorts = [ 5029 ];
     enableIPv6 = false;
     useDHCP = false;
     interfaces = {

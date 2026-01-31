@@ -141,14 +141,15 @@
   # services.gnome.sushi.enable = true;
   # services.gnome.core-shell.enable = true;
   # services.gnome.core-utilities.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
 
-  services.xserver.enable = true;
+  # Hyprland is enabled via nixos/gui/hyprland module
+  # greetd/tuigreet is enabled via nixos/gui/default.nix
+
+  # Enable Hyprland for this machine's home-manager
+  home-manager.users.tgunnoe.wayland.windowManager.hyprland.enable = true;
+
   environment.systemPackages = [
     pkgs.gjs
-    pkgs.kdePackages.krohnkite
   ];
   time.timeZone = "America/New_York";
   time.hardwareClockInLocalTime = true;

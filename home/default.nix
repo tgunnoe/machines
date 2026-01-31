@@ -21,6 +21,7 @@
           inputs.nix-doom-emacs-unstraightened.hmModule
           inputs.plasma-manager.homeModules.plasma-manager
           ./zsh.nix
+          ./gui
         ];
         programs.doom-emacs = {
           enable = true;
@@ -32,7 +33,7 @@
           ];
         };
         programs.plasma = {
-          enable = true;
+          enable = false;  # Disabled - using Hyprland now
 
           configFile = {
             "kglobalshortcutsrc" = {
