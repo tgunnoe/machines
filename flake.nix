@@ -98,6 +98,17 @@
           # Override: cross-compile for Pi instead of building on target
           deployment.buildOnTarget = false;
         };
+        gammu = {
+          system = "aarch64-linux";
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+            self.nixosModules.default
+            ./systems/gammu.nix
+          ];
+          # Override: cross-compile for Pi instead of building on target
+          deployment.buildOnTarget = false;
+        };
       };
 
       # Helper to create nixosSystem from machine definition
