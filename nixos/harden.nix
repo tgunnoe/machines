@@ -16,11 +16,11 @@
   services = {
     openssh = {
       enable = true;
-      challengeResponseAuthentication = false;
       settings.PermitRootLogin = "prohibit-password"; # distributed-build.nix requires it
       settings.PasswordAuthentication = false;
+      settings.KbdInteractiveAuthentication = false;
+      settings.X11Forwarding = true;
       allowSFTP = true;
-      forwardX11 = true;
       startWhenNeeded = true;
 
     };

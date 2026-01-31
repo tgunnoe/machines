@@ -45,8 +45,8 @@
     };
   };
 
-  hardware.opengl.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.graphics.enable = true;
+  services.pulseaudio.enable = false;
 
   # Speed up boot
   # https://discourse.nixos.org/t/boot-faster-by-disabling-udev-settle-and-nm-wait-online/6339

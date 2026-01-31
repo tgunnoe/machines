@@ -6,7 +6,7 @@ let
 in
 {
   # NOTE: libinput changes require a reboot
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
 
     # macOS like scrolling

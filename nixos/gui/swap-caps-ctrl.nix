@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 {
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+  services.xserver.xkb.options = "ctrl:swapcaps";
   console.useXkbConfig = true;
 }
