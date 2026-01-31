@@ -97,11 +97,25 @@
 
   security.rtkit.enable = true;
 
-  # Wayland desktop - Labwc (lightweight Openbox-like compositor)
+  # Labwc Wayland compositor
   programs.labwc.enable = true;
 
-  # greetd with tuigreet for Wayland - override the shared Hyprland default
-  services.greetd.settings.default_session.command = lib.mkForce "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd labwc";
+  # greetd with gtkgreet (graphical Wayland greeter)
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        # Use cage to run gtkgreet in a minimal Wayland session
+        command = lib.mkForce "${pkgs.cage}/bin/cage -s -- ${pkgs.greetd.gtkgreet}/bin/gtkgreet";
+        user = "greeter";
+      };
+    };
+  };
+
+  # gtkgreet config - list available sessions
+  environment.etc."greetd/environments".text = ''
+    labwc
+  '';
 
   # XDG portal for Wayland
   xdg.portal = {
@@ -113,6 +127,37 @@
   # Allow passwordless sudo for wheel group (needed for colmena deployments)
   security.sudo.wheelNeedsPassword = false;
 
+  # Labwc autostart configuration for all users
+  environment.etc."xdg/labwc/autostart".text = ''
+    # Set dark background
+    swaybg -c '#21252b' &
+
+    # Set dark GTK theme
+    export GTK_THEME=Adwaita:dark
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+    # Start sfwbar panel (taskbar with start menu - used in official labwc screenshots)
+    sfwbar &
+
+    # Notifications
+    mako &
+  '';
+
+  # Labwc menu configuration (right-click menu)
+  environment.etc."xdg/labwc/menu.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <openbox_menu>
+      <menu id="root-menu" label="">
+        <item label="Terminal"><action name="Execute"><command>foot</command></action></item>
+        <item label="File Manager"><action name="Execute"><command>pcmanfm</command></action></item>
+        <separator />
+        <item label="Reconfigure"><action name="Reconfigure" /></item>
+        <item label="Exit"><action name="Exit" /></item>
+      </menu>
+    </openbox_menu>
+  '';
+
   # Extra packages specific to this Pi
   environment.systemPackages = with pkgs; [
     git
@@ -120,17 +165,22 @@
     vim
     # Labwc desktop environment
     labwc
+    labwc-tweaks   # Config/theme utility (shown in official screenshots)
     foot           # Lightweight Wayland terminal
     wofi           # App launcher
-    nwg-panel      # Taskbar with start menu
-    nwg-drawer     # Full-screen app launcher (optional)
-    nwg-look       # GTK theme switcher
+    sfwbar         # Taskbar panel (used in official labwc screenshots)
     grim
     slurp
     wl-clipboard
     mako           # Notifications
     pcmanfm        # File manager
     swaybg         # Wallpaper
+    cage           # For gtkgreet
+    # Theming
+    adwaita-icon-theme
+    gnome-themes-extra  # Adwaita-dark theme
+    dconf           # For gsettings
+    glib            # gsettings command
   ];
 
   system.stateVersion = "24.11";
