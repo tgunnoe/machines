@@ -31,6 +31,7 @@
       encfs
       fd
       git
+      gh
 
       gptfdisk
       iputils
